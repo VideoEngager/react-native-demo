@@ -12,6 +12,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		4DD7A7B528FD47640030EA4B /* VeReactModuleC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD7A7B428FD47640030EA4B /* VeReactModuleC.m */; };
+		4DD7A7B628FD7B590030EA4B /* VeReactModuleC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD7A7B428FD47640030EA4B /* VeReactModuleC.m */; };
+		4DD7A7BB28FD810D0030EA4B /* VeReactModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD7A7BA28FD810D0030EA4B /* VeReactModule.swift */; };
+		4DD7A7BD28FD82290030EA4B /* SmartVideo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4DD7A7BC28FD82290030EA4B /* SmartVideo-Info.plist */; };
 		7699B88040F8A987B510C191 /* libPods-VeTest-VeTestTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-VeTest-VeTestTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -38,6 +42,11 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VeTest/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-VeTest-VeTestTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VeTest-VeTestTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-VeTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeTest.debug.xcconfig"; path = "Target Support Files/Pods-VeTest/Pods-VeTest.debug.xcconfig"; sourceTree = "<group>"; };
+		4DD7A7B328FD47090030EA4B /* VeReactModuleC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VeReactModuleC.h; sourceTree = "<group>"; };
+		4DD7A7B428FD47640030EA4B /* VeReactModuleC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VeReactModuleC.m; sourceTree = "<group>"; };
+		4DD7A7B728FD7FB30030EA4B /* VeTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VeTest-Bridging-Header.h"; sourceTree = "<group>"; };
+		4DD7A7BA28FD810D0030EA4B /* VeReactModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeReactModule.swift; sourceTree = "<group>"; };
+		4DD7A7BC28FD82290030EA4B /* SmartVideo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SmartVideo-Info.plist"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-VeTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeTest.release.xcconfig"; path = "Target Support Files/Pods-VeTest/Pods-VeTest.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-VeTest-VeTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeTest-VeTestTests.debug.xcconfig"; path = "Target Support Files/Pods-VeTest-VeTestTests/Pods-VeTest-VeTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-VeTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VeTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,12 +95,17 @@
 		13B07FAE1A68108700A75B9A /* VeTest */ = {
 			isa = PBXGroup;
 			children = (
+				4DD7A7B328FD47090030EA4B /* VeReactModuleC.h */,
+				4DD7A7B428FD47640030EA4B /* VeReactModuleC.m */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				4DD7A7BA28FD810D0030EA4B /* VeReactModule.swift */,
+				4DD7A7BC28FD82290030EA4B /* SmartVideo-Info.plist */,
+				4DD7A7B728FD7FB30030EA4B /* VeTest-Bridging-Header.h */,
 			);
 			name = VeTest;
 			sourceTree = "<group>";
@@ -207,7 +221,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1400;
 					};
 				};
 			};
@@ -244,6 +258,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				4DD7A7BD28FD82290030EA4B /* SmartVideo-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* VeTestTests.m in Sources */,
+				4DD7A7B628FD7B590030EA4B /* VeReactModuleC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +428,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DD7A7BB28FD810D0030EA4B /* VeReactModule.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				4DD7A7B528FD47640030EA4B /* VeReactModuleC.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +450,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-VeTest-VeTestTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -459,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-VeTest-VeTestTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = VeTestTests/Info.plist;
@@ -486,8 +506,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SNXJNLUKY6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = VeTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -497,8 +519,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.videoengager.smartvideodemoapp.react;
 				PRODUCT_NAME = VeTest;
+				SWIFT_OBJC_BRIDGING_HEADER = "VeTest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -512,7 +535,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SNXJNLUKY6;
 				INFOPLIST_FILE = VeTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -522,8 +547,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.videoengager.smartvideodemoapp.react;
 				PRODUCT_NAME = VeTest;
+				SWIFT_OBJC_BRIDGING_HEADER = "VeTest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -562,7 +588,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -596,6 +622,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -633,7 +660,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -659,6 +686,7 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

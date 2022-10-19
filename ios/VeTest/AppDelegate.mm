@@ -5,6 +5,7 @@
 #import <React/RCTRootView.h>
 
 #import <React/RCTAppSetupUtils.h>
+#import <AVFoundation/AVFoundation.h>
 
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
@@ -23,6 +24,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   RCTSurfacePresenterBridgeAdapter *_bridgeAdapter;
   std::shared_ptr<const facebook::react::ReactNativeConfig> _reactNativeConfig;
   facebook::react::ContextContainer::Shared _contextContainer;
+  
 }
 @end
 #endif
@@ -52,6 +54,13 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
     rootView.backgroundColor = [UIColor whiteColor];
   }
 
+  [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+    
+  }];
+  [AVCaptureDevice requestAccessForMediaType: AVMediaTypeVideo completionHandler:^(BOOL granted) {
+    
+  }];
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
