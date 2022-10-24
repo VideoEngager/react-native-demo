@@ -24,6 +24,7 @@ class VeReactModule: RCTEventEmitter {
     let engine = GenesysEngine(environment: .live, isVideo: true, memberInfo: memberInfo)
     let lang = "en_US"
     SmartVideo.delegate = self
+    SmartVideo.chatDelegate = self
     SmartVideo.setLogging(level: .verbose, types: [.all])
     SmartVideo.connect(engine: engine, isVideo: true, lang: lang)
   }
@@ -65,7 +66,13 @@ extension VeReactModule: SmartVideoDelegate {
     self.sendEvent(withName: "Ve_onError", body: json)
   }
   
-  func genesysEngageChat(message: String, from: String) {
-    self.sendEvent(withName: "Ve_onChatMessage", body: message)
+}
+
+extension VeReactModule: SmartVideoChatDelegate {
+  func genesysCloudChat(message: SmartVideoSDK.ChatMessage) {
+    
+    if !message.message.contains("interactionId") {
+        self.sendEvent(withName: "Ve_onChatMessage", body: message.message)
+    }
   }
 }
