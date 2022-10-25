@@ -51,13 +51,20 @@ const App: () => Node = () => {
     //declare event emmiter and add Videoengager events
     const eventEmitter = new NativeEventEmitter(NativeModules.VeReactModule);
     eventEmitter.addListener('Ve_onError', (event) => {
-       console.log(event) 
+       console.log(event)
     });
     eventEmitter.addListener('Ve_onChatMessage', (event) => {
-      console.log(event) 
-      ToastAndroid.show(event,ToastAndroid.SHORT)
+      console.log(event)
+
+      Alert.alert(
+        "Chat Message",
+        event,
+        [
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
    });
-    
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -127,7 +134,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 18,
     fontWeight: '400',
-    
+
   },
   highlight: {
     fontWeight: '700',
@@ -139,7 +146,7 @@ const styles = StyleSheet.create({
     padding: 10,
     minWidth: 200,
     color: Colors.black,
-    backgroundColor: `#dcdcdc`, 
+    backgroundColor: `#dcdcdc`,
     width: '100%',
   },
 });
