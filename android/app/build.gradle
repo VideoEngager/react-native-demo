@@ -254,7 +254,7 @@ dependencies {
     implementation 'com.videoengager:smartvideo-sdk:1.15.1'
 
     //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    implementation "com.facebook.react:react-native:0.70.2"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
