@@ -5,6 +5,11 @@ This project is created from initial ReactNative Guide shown here
 https://reactnative.dev/docs/environment-setup
 
 ## Android implementation
+
+### Example demo App can be downloaded from here :
+https://drive.google.com/file/d/1U9SpgTXXEVvvF7cwzqiahs48JZkf55q9/view?usp=sharing
+
+
 You can read how to use android native code with ReactNative app from this guide : https://reactnative.dev/docs/native-modules-android
 
 Following ReactNative logic these are steps for implementing VideoEngager SmartVideo SDK with your React App:
@@ -101,6 +106,118 @@ If you need to change initial settings for VideoEngager SmartVideo SDK you can d
         });
     }
 ```
+
+### Android DeepLink implementation
+You can read how to implement android DeepLinks with ReactNative from this guide : https://reactnative.dev/docs/linking
+
+Example steps for SmartVideo shortUrl Call :
+1. Open `./android/app/src/AndroidManifest.xml` and in MainActivity section put following:
+
+```xml
+        <intent-filter
+            android:autoVerify="true"
+            android:label="SmartVideo Call">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+            <data android:host="videome.videoengager.com" />
+            <data android:host="videome.leadsecure.com" />
+            <data android:pathPrefix="/ve/" />
+        </intent-filter>
+```
+
+2. Add following method to `VeReactModule.java` in android project to be able to make shortUrl Call  : 
+
+```java
+    @ReactMethod
+    public void CallWithShortUrl(String veShortUrl) {
+        String CallerName = "ShortUrl Visitor";
+        Settings settings = new Settings(
+                "c4b553c3-ee42-4846-aeb1-f0da3d85058e",
+                "973f8326-c601-40c6-82ce-b87e6dafef1c",
+                "https://videome.videoengager.com",
+                "0FphTk091nt7G1W7",
+                "https://api.mypurecloud.com",
+                "Support",
+                "mobiledev",
+                CallerName,
+                CallerName,
+                "",
+                "test@test.com","",
+                VideoEngager.Language.ENGLISH,null,null,null,null,
+                null,true,null,null,
+                null,false,true,30,null,120
+        );
+        VideoEngager ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.generic );
+        ve.Connect(VideoEngager.CallType.video);
+        ve.VeVisitorVideoCall(veShortUrl);
+        ve.setOnEventListener(new VideoEngager.EventListener() {
+            @Override
+            public boolean onError(@NonNull Error error) {
+                sendEvent("Ve_onError", new Gson().toJson(error));
+                return super.onError(error);
+            }
+        });
+    }
+```
+
+3. In `App.js` add following logic :
+
+```javascript
+  import {
+  ...
+  ...
+    Linking,
+  } from 'react-native';
+
+...
+
+  // if app starts from deep link, handle it here
+   Linking.getInitialURL().then(veShortUrl => {
+    console.log("Initial Url : "+veShortUrl)
+    if(veShortUrl!=null && veShortUrl.length>0) {
+      VeReactModule.CallWithShortUrl(veShortUrl)
+    }
+  })
+  // If App is running register for deep links and handle event
+  Linking.addEventListener('url', (event)=>{
+    console.log("Event Url : "+event.url)
+    if(event.url!=null && event.url.length>0) {
+      VeReactModule.CallWithShortUrl(event.url)
+     }
+  })
+
+```
+
+4. Send to VideoEngager following information:
+
+      1. Your app PACKAGE NAME
+      2. Your app `test` and `production` SHA-256 keys fingerprint
+
+This information will be added to our `.well-known/assetlinks.json` for verification
+
+You can read more about Android deep links here : https://developer.android.com/training/app-links/
+
+
+5. After VideoEngager acceptance of your previous step you can verify registration with these steps :
+  * Connect device (start emulator) and check adb connection 
+  * Open terminal and execute following :
+```bash 
+adb shell pm get-app-links <YOUR APP PACKAGE>
+```
+ this will print as result following :
+```bash
+  <YOUR APP PACKAGE>:
+    ID: fba7a16e-4873-40da-b16c-cbaea06e3a19
+    Signatures: [FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C] // here will be your cert fingerprint
+    Domain verification state:
+      videome.leadsecure.com: verified
+      videome.videoengager.com: verified
+```
+ If `Domain verification state:` results for `videome.leadsecure.com` and `videome.leadsecure.com` are `verified` you can now open VideoEngager ShortUrlCall links with your App.
+
+
 
 ## iOS implementation
 You can read how to use iOS native code with ReactNative app from this guide : https://reactnative.dev/docs/native-modules-ios
@@ -219,5 +336,4 @@ In this example we are registering for 2 events ... if you need more events you 
 </Section>
 ```
 
-## Example demo App can be downloaded from here :
-https://drive.google.com/file/d/1U9SpgTXXEVvvF7cwzqiahs48JZkf55q9/view?usp=sharing
+

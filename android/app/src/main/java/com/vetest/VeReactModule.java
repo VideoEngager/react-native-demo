@@ -70,6 +70,42 @@ public class VeReactModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void CallWithShortUrl(String veShortUrl) {
+        String CallerName = "ShortUrl Visitor";
+        Settings settings = new Settings(
+                "c4b553c3-ee42-4846-aeb1-f0da3d85058e",
+                "973f8326-c601-40c6-82ce-b87e6dafef1c",
+                "https://videome.videoengager.com",
+                "0FphTk091nt7G1W7",
+                "https://api.mypurecloud.com",
+                "Support",
+                "mobiledev",
+                CallerName,
+                CallerName,
+                "",
+                "test@test.com","",
+                VideoEngager.Language.ENGLISH,null,null,null,null,
+                null,true,null,null,
+                null,false,true,30,null,120
+        );
+        VideoEngager ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.generic );
+        ve.Connect(VideoEngager.CallType.video);
+        ve.VeVisitorVideoCall(veShortUrl);
+        ve.setOnEventListener(new VideoEngager.EventListener() {
+            @Override
+            public boolean onError(@NonNull Error error) {
+                sendEvent("Ve_onError", new Gson().toJson(error));
+                return super.onError(error);
+            }
+
+            @Override
+            public void onMessageAndTimeStampReceived(@NonNull String timestamp, @NonNull String message) {
+                sendEvent("Ve_onChatMessage", message);
+            }
+        });
+    }
+
+    @ReactMethod
     public void addListener(String eventName) {
         // Set up any upstream listeners or background tasks as necessary
     }

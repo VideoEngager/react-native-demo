@@ -22,6 +22,7 @@ import {
   ToastAndroid,
   NativeModules,
   NativeEventEmitter,
+  Linking,
 } from 'react-native';
 
 import {
@@ -37,7 +38,10 @@ const { VeReactModule } = NativeModules;
 
 userName='React Native Tester';
 
-
+function veShortUrlCall(veShortUrl){
+  console.log("Short Url Call : "+veShortUrl)
+  VeReactModule.CallWithShortUrl(veShortUrl)
+}
 
 
 
@@ -48,6 +52,21 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  // if app starts from deep link, handle it here
+   Linking.getInitialURL().then(veShortUrl => {
+    console.log("Initial Url : "+veShortUrl)
+    if(veShortUrl!=null && veShortUrl.length>0) {
+      veShortUrlCall(veShortUrl)
+    }
+  })
+  // If App is running register for deep links and handle event
+  Linking.addEventListener('url', (event)=>{
+    console.log("Event Url : "+event.url)
+    if(event.url!=null && event.url.length>0) {
+      veShortUrlCall(event.url)
+     }
+  })
+  
     //declare event emmiter and add Videoengager events
     const eventEmitter = new NativeEventEmitter(NativeModules.VeReactModule);
     eventEmitter.addListener('Ve_onError', (event) => {
