@@ -5,11 +5,12 @@ import {Label} from './Label';
 export const TextInput = ({label, autoCapitalize = 'sentences', ...rest}) => {
   return (
     <>
-      {label && <Label>{label}</Label>}
+      {label && <Label style={styles.label}>{label}</Label>}
       <RNTextInput
         style={styles.input}
         autoCorrect={false}
         autoCapitalize={autoCapitalize}
+        placeholderTextColor="black"
         {...rest}
       />
     </>
@@ -25,5 +26,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     borderWidth: 1,
     borderRadius: 10,
+    color: 'black',
+  },
+
+  label: {
+    color: 'black',
   },
 });

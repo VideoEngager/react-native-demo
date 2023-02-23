@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 22,
+    color: 'black',
   },
 
   right: {

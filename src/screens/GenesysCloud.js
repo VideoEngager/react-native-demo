@@ -4,12 +4,55 @@ import {StyleSheet, View, NativeModules, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import {Label} from '../components/Label';
+import {useSettings} from '../contexts/Settings';
 import SettingsIcon from '../icons/SettingsIcon';
 
 const {VeReactModule} = NativeModules;
 
 export const GenesysCloudDemo = () => {
   const navigation = useNavigation();
+  const {
+    customerName,
+    organizationId,
+    deploymentId,
+    videoengagerUrl,
+    tenantId,
+    environment,
+    avatarImageUrl,
+    informationLabelText,
+    backgroundImageURL,
+    toolbarHideTimeout,
+    customerLabel,
+    agentWaitingTimeout,
+    showAgentBusyDialog,
+    allowVisitorSwitchAudioToVideo,
+    callWithPictureInPicture,
+    callWithSpeakerPhone,
+    hideAvatar,
+    hideName,
+  } = useSettings();
+
+  const config = {
+    customerName,
+    organizationId,
+    deploymentId,
+    videoengagerUrl,
+    tenantId,
+    environment,
+    avatarImageUrl,
+    informationLabelText,
+    backgroundImageURL,
+    toolbarHideTimeout,
+    customerLabel,
+    agentWaitingTimeout,
+    showAgentBusyDialog,
+    allowVisitorSwitchAudioToVideo,
+    callWithPictureInPicture,
+    callWithSpeakerPhone,
+    hideAvatar,
+    hideName,
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header
@@ -24,7 +67,7 @@ export const GenesysCloudDemo = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => VeReactModule.ClickToVideo('Pavan')}>
+          onPress={() => VeReactModule.ClickToVideo(config)}>
           <Label>Start Video</Label>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => {}}>

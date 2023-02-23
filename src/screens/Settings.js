@@ -9,49 +9,70 @@ import {
 import Header from '../components/Header';
 import {Label} from '../components/Label';
 import {TextInput} from '../components/TextInput';
+import {useSettings} from '../contexts/Settings';
 
 export const Settings = () => {
   const navigation = useNavigation();
+  const {
+    customerName,
+    organizationId,
+    deploymentId,
+    videoengagerUrl,
+    tenantId,
+    environment,
+    setCustomerName,
+    setOrganizationId,
+    setDeploymentId,
+    setVideoengagerUrl,
+    setTenantId,
+    setEnvironment,
+  } = useSettings();
   return (
     <SafeAreaView style={styles.container}>
       <Header title={'Settings'} onPressLeft={navigation.goBack} />
 
       <ScrollView style={styles.wrapper}>
         <TextInput
+          style={styles.btnText}
           label={'Customer Name'}
           placeholder={'Customer Name'}
-          value={'Android Demo Tester'}
-          onChangeText={() => {}}
+          value={customerName}
+          onChangeText={setCustomerName}
         />
         <TextInput
+          style={styles.btnText}
           label={'Organization Id'}
           placeholder={'Organization Id'}
-          value={'c4b553c3-ee42-4846-aeb1-f0da3d85058e'}
-          onChangeText={() => {}}
+          value={organizationId}
+          onChangeText={setOrganizationId}
         />
         <TextInput
+          style={styles.btnText}
           label={'Deployment Id'}
           placeholder={'Deployment Id'}
-          value={'973f8326-c601-40c6-82ce-b87e6dafef1c'}
-          onChangeText={() => {}}
+          value={deploymentId}
+          onChangeText={setDeploymentId}
         />
         <TextInput
+          style={styles.btnText}
           label={'Videoengager Url'}
           placeholder={'Videoengager Url'}
-          value={'https://videome.videoengager.com'}
-          onChangeText={() => {}}
+          value={videoengagerUrl}
+          onChangeText={setVideoengagerUrl}
         />
         <TextInput
+          style={styles.btnText}
           label={'Tenant Id'}
           placeholder={'Tenant Id'}
-          value={'0FphTk091nt7G1W7'}
-          onChangeText={() => {}}
+          value={tenantId}
+          onChangeText={setTenantId}
         />
         <TextInput
+          style={styles.btnText}
           label={'Environment'}
           placeholder={'Environment'}
-          value={'https://api.mypurecloud.com'}
-          onChangeText={() => {}}
+          value={environment}
+          onChangeText={setEnvironment}
         />
         <TouchableOpacity
           style={styles.button}
@@ -88,5 +109,10 @@ const styles = StyleSheet.create({
 
   text: {
     color: 'white',
+  },
+
+  btnText: {
+    color: 'black',
+    borderWidth: 1,
   },
 });

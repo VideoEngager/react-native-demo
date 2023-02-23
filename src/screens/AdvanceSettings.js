@@ -5,9 +5,36 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import {Label} from '../components/Label';
 import {TextInput} from '../components/TextInput';
+import {useSettings} from '../contexts/Settings';
 
 export const AdvanceSettings = () => {
   const navigation = useNavigation();
+  const {
+    avatarImageUrl,
+    informationLabelText,
+    backgroundImageURL,
+    toolbarHideTimeout,
+    customerLabel,
+    agentWaitingTimeout,
+    showAgentBusyDialog,
+    allowVisitorSwitchAudioToVideo,
+    callWithPictureInPicture,
+    callWithSpeakerPhone,
+    hideAvatar,
+    hideName,
+    setAvatarImageUrl,
+    setInformationLabelText,
+    setBackgroundImageURL,
+    setToolbarHideTimeout,
+    setCustomerLabel,
+    setAgentWaitingTimeout,
+    setShowAgentBusyDialog,
+    setAllowVisitorSwitchAudioToVideo,
+    setCallWithPictureInPicture,
+    setCallWithSpeakerPhone,
+    setHideAvatar,
+    setHideName,
+  } = useSettings();
   return (
     <SafeAreaView style={styles.container}>
       <Header title={'Advance Settings'} onPressLeft={navigation.goBack} />
@@ -16,67 +43,79 @@ export const AdvanceSettings = () => {
         <TextInput
           label={'Avatar Image Url'}
           placeholder={'Avatar Image Url'}
-          value={''}
-          onChangeText={() => {}}
+          value={avatarImageUrl}
+          onChangeText={setAvatarImageUrl}
         />
         <TextInput
           label={'Information Label Text'}
           placeholder={'Information Label Text'}
-          value={''}
-          onChangeText={() => {}}
+          value={informationLabelText}
+          onChangeText={setInformationLabelText}
         />
         <TextInput
           label={'Background Image URL'}
           placeholder={'Background Image URL'}
-          value={''}
-          onChangeText={() => {}}
+          value={backgroundImageURL}
+          onChangeText={setBackgroundImageURL}
         />
         <TextInput
           label={'Toolbar Hide Timeout'}
           placeholder={'ToolBar Hide Timeout'}
-          value={'10'}
-          onChangeText={() => {}}
+          value={toolbarHideTimeout}
+          onChangeText={setToolbarHideTimeout}
         />
         <TextInput
           label={'Customer Label'}
           placeholder={'Customer Label'}
-          value={''}
-          onChangeText={() => {}}
+          value={customerLabel}
+          onChangeText={setCustomerLabel}
         />
         <TextInput
           label={'Agent Waiting Timeout'}
           placeholder={'Agent Waiting Timeout'}
-          value={'120'}
-          onChangeText={() => {}}
+          value={agentWaitingTimeout}
+          onChangeText={setAgentWaitingTimeout}
         />
         <View style={styles.option}>
-          <Switch value={false} onValueChange={value => {}} disabled={false} />
+          <Switch
+            value={showAgentBusyDialog}
+            onValueChange={setShowAgentBusyDialog}
+          />
           <Label style={styles.optionLabel}>Show Agent Busy Dialog</Label>
         </View>
         <View style={styles.option}>
-          <Switch value={true} onValueChange={value => {}} disabled={false} />
+          <Switch
+            value={allowVisitorSwitchAudioToVideo}
+            onValueChange={setAllowVisitorSwitchAudioToVideo}
+          />
           <Label style={styles.optionLabel}>
             Allow visitor to switch audio call to Video Call
           </Label>
         </View>
         <View style={styles.option}>
-          <Switch value={true} onValueChange={value => {}} disabled={false} />
+          <Switch
+            value={callWithPictureInPicture}
+            onValueChange={setCallWithPictureInPicture}
+          />
           <Label style={styles.optionLabel}>
             Start Call With Picture In Picture Mode
           </Label>
         </View>
         <View style={styles.option}>
-          <Switch value={true} onValueChange={value => {}} disabled={false} />
+          <Switch
+            value={callWithSpeakerPhone}
+            onValueChange={setCallWithSpeakerPhone}
+          />
           <Label style={styles.optionLabel}>
             Start Call With Speaker Phone
           </Label>
         </View>
         <View style={styles.option}>
-          <Switch value={true} onValueChange={value => {}} disabled={false} />
+          <Switch value={hideAvatar} onValueChange={setHideAvatar} />
           <Label style={styles.optionLabel}>Hide Avatar</Label>
         </View>
         <View style={styles.option}>
-          <Switch value={true} onValueChange={value => {}} disabled={false} />
+          <Switch value={hideName} onValueChange={setHideName} />
           <Label style={styles.optionLabel}>Hide Name</Label>
         </View>
       </ScrollView>

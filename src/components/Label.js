@@ -10,5 +10,6 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: '500',
     paddingVertical: 8,
+    color: 'black',
   },
 });
