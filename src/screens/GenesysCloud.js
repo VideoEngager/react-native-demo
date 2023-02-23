@@ -67,7 +67,7 @@ export const GenesysCloudDemo = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => VeReactModule.ClickToVideo(config)}>
+          onPress={() => VeReactModule.ClickToVideo(JSON.stringify(config))}>
           <Label>Start Video</Label>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => {}}>

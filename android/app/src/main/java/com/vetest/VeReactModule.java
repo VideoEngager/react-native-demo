@@ -34,24 +34,31 @@ public class VeReactModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void ClickToVideo(String CallerName) {
-        Toast.makeText(this.getReactApplicationContext(),"Hello "+CallerName,Toast.LENGTH_SHORT).show();
-
+    public void ClickToVideo(String initSettingsJson) {
+        VeInitSettings veInitSettings = new Gson().fromJson(initSettingsJson,VeInitSettings.class);
         Settings settings = new Settings(
-                "c4b553c3-ee42-4846-aeb1-f0da3d85058e",
-                "973f8326-c601-40c6-82ce-b87e6dafef1c",
-                "https://videome.videoengager.com",
-                "0FphTk091nt7G1W7",
-                "https://api.mypurecloud.com",
+                veInitSettings.organizationId,
+                veInitSettings.deploymentId,
+                veInitSettings.videoengagerUrl,
+                veInitSettings.tenantId,
+                veInitSettings.environment,
                 "Support",
                 "mobiledev",
-                CallerName,
-                CallerName,
+                veInitSettings.customerName,
+                veInitSettings.customerName,
                 "",
                 "test@test.com","",
                 VideoEngager.Language.ENGLISH,null,null,null,null,
-                null,true,null,null,
-                null,false,true,30,null,120
+                veInitSettings.avatarImageUrl,
+                veInitSettings.allowVisitorSwitchAudioToVideo,
+                veInitSettings.informationLabelText,
+                veInitSettings.backgroundImageURL,
+                null,
+                veInitSettings.callWithPictureInPicture,
+                veInitSettings.callWithSpeakerPhone,
+                Integer.parseInt(veInitSettings.toolbarHideTimeout),
+                veInitSettings.customerLabel,
+                Integer.parseInt(veInitSettings.agentWaitingTimeout)
         );
         VideoEngager ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.genesys );
         ve.Connect(VideoEngager.CallType.video);
