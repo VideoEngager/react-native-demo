@@ -20,12 +20,14 @@ export const Settings = () => {
     videoengagerUrl,
     tenantId,
     environment,
+    queue,
     setCustomerName,
     setOrganizationId,
     setDeploymentId,
     setVideoengagerUrl,
     setTenantId,
     setEnvironment,
+    setQueue,
   } = useSettings();
   return (
     <SafeAreaView style={styles.container}>
@@ -73,6 +75,13 @@ export const Settings = () => {
           placeholder={'Environment'}
           value={environment}
           onChangeText={setEnvironment}
+        />
+        <TextInput
+          style={styles.btnText}
+          label={'Queue'}
+          placeholder={'Queue'}
+          value={queue}
+          onChangeText={setQueue}
         />
         <TouchableOpacity
           style={styles.button}

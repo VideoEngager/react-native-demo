@@ -7,6 +7,7 @@ const SettingsContext = createContext({
   videoengagerUrl: '',
   tenantId: '',
   environment: '',
+  queue: '',
   avatarImageUrl: '',
   informationLabelText: '',
   backgroundImageURL: '',
@@ -37,6 +38,7 @@ const SettingsContext = createContext({
   setCallWithSpeakerPhone: () => {},
   setHideAvatar: () => {},
   setHideName: () => {},
+  setQueue: () => {},
 });
 
 export const SettingsProvider = ({...rest}) => {
@@ -52,6 +54,7 @@ export const SettingsProvider = ({...rest}) => {
   );
   const [tenantId, setTenantId] = useState('0FphTk091nt7G1W7');
   const [environment, setEnvironment] = useState('https://api.mypurecloud.com');
+  const [queue, setQueue] = useState('Support');
   const [avatarImageUrl, setAvatarImageUrl] = useState('');
   const [informationLabelText, setInformationLabelText] = useState('');
   const [backgroundImageURL, setBackgroundImageURL] = useState('');
@@ -87,6 +90,7 @@ export const SettingsProvider = ({...rest}) => {
       callWithSpeakerPhone,
       hideAvatar,
       hideName,
+      queue,
       setCustomerName,
       setOrganizationId,
       setDeploymentId,
@@ -105,6 +109,7 @@ export const SettingsProvider = ({...rest}) => {
       setCallWithSpeakerPhone,
       setHideAvatar,
       setHideName,
+      setQueue,
     }),
     [
       customerName,
@@ -125,6 +130,7 @@ export const SettingsProvider = ({...rest}) => {
       callWithSpeakerPhone,
       hideAvatar,
       hideName,
+      queue,
     ],
   );
 

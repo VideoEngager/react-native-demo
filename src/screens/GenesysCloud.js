@@ -30,6 +30,7 @@ export const GenesysCloudDemo = () => {
     callWithSpeakerPhone,
     hideAvatar,
     hideName,
+    queue,
   } = useSettings();
 
   const config = {
@@ -51,6 +52,7 @@ export const GenesysCloudDemo = () => {
     callWithSpeakerPhone,
     hideAvatar,
     hideName,
+    queue,
   };
 
   return (

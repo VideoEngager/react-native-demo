@@ -42,7 +42,7 @@ public class VeReactModule extends ReactContextBaseJavaModule {
                 veInitSettings.videoengagerUrl,
                 veInitSettings.tenantId,
                 veInitSettings.environment,
-                "Support",
+                veInitSettings.queue,
                 "mobiledev",
                 veInitSettings.customerName,
                 veInitSettings.customerName,

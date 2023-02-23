@@ -7,6 +7,7 @@ public class VeInitSettings {
     public String videoengagerUrl;
     public String tenantId;
     public String environment;
+    public String queue;
     public String avatarImageUrl;
     public String informationLabelText;
     public String backgroundImageURL;
