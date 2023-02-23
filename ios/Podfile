@@ -26,7 +26,7 @@ target 'VeTest' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'SmartVideo', :git => 'https://github.com/VideoEngager/SmartVideo-iOS-SDK', :branch => "development"
+  pod 'SmartVideo'#, :git => 'https://github.com/VideoEngager/SmartVideo-iOS-SDK', :branch => "development"
 
   target 'VeTestTests' do
     inherit! :complete
