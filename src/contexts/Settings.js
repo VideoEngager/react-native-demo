@@ -52,7 +52,7 @@ export const SettingsProvider = ({...rest}) => {
   const [videoengagerUrl, setVideoengagerUrl] = useState(
     'https://videome.videoengager.com',
   );
-  const [tenantId, setTenantId] = useState('0FphTk091nt7G1W7');
+  const [tenantId, setTenantId] = useState('hbvvUTaZxCVLikpB');
   const [environment, setEnvironment] = useState('https://api.mypurecloud.com');
   const [queue, setQueue] = useState('Support');
   const [avatarImageUrl, setAvatarImageUrl] = useState('');
