@@ -38,7 +38,7 @@ const Header = ({
         <View style={styles.right}>
           {onPressRight ? (
             <TouchableOpacity style={styles.touchable} onPress={onPressRight}>
-              {rightIcon}
+              <View style={styles.iconRight}>{rightIcon}</View>
             </TouchableOpacity>
           ) : (
             <View style={styles.touchable}>
@@ -86,12 +86,15 @@ const styles = StyleSheet.create({
   touchable: {
     flex: 1,
     justifyContent: 'center',
-    marginTop: 4,
     paddingHorizontal: 22,
     paddingVertical: 32,
   },
 
   placeHolder: {
     width: 24,
+  },
+
+  iconRight: {
+    marginBottom: 10,
   },
 });

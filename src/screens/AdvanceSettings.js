@@ -6,87 +6,87 @@ import Header from '../components/Header';
 import {Label} from '../components/Label';
 import {TextInput} from '../components/TextInput';
 import {useSettings} from '../contexts/Settings';
+import ResetIcon from '../icons/ResetIcon';
 
 export const AdvanceSettings = () => {
   const navigation = useNavigation();
-  const {
-    avatarImageUrl,
-    informationLabelText,
-    backgroundImageURL,
-    toolbarHideTimeout,
-    customerLabel,
-    agentWaitingTimeout,
-    showAgentBusyDialog,
-    allowVisitorSwitchAudioToVideo,
-    callWithPictureInPicture,
-    callWithSpeakerPhone,
-    hideAvatar,
-    hideName,
-    setAvatarImageUrl,
-    setInformationLabelText,
-    setBackgroundImageURL,
-    setToolbarHideTimeout,
-    setCustomerLabel,
-    setAgentWaitingTimeout,
-    setShowAgentBusyDialog,
-    setAllowVisitorSwitchAudioToVideo,
-    setCallWithPictureInPicture,
-    setCallWithSpeakerPhone,
-    setHideAvatar,
-    setHideName,
-  } = useSettings();
+  const {settings, updateSettings, resetSettings} = useSettings();
   return (
     <SafeAreaView style={styles.container}>
-      <Header title={'Advance Settings'} onPressLeft={navigation.goBack} />
+      <Header
+        title={'Advance Settings'}
+        onPressLeft={navigation.goBack}
+        rightIcon={<ResetIcon />}
+        onPressRight={() => resetSettings()}
+      />
 
       <ScrollView style={styles.wrapper}>
         <TextInput
           label={'Avatar Image Url'}
           placeholder={'Avatar Image Url'}
-          value={avatarImageUrl}
-          onChangeText={setAvatarImageUrl}
+          value={settings.avatarImageUrl}
+          onChangeText={text =>
+            updateSettings({...settings, avatarImageUrl: text})
+          }
         />
         <TextInput
           label={'Information Label Text'}
           placeholder={'Information Label Text'}
-          value={informationLabelText}
-          onChangeText={setInformationLabelText}
+          value={settings.informationLabelText}
+          onChangeText={text =>
+            updateSettings({...settings, informationLabelText: text})
+          }
         />
         <TextInput
           label={'Background Image URL'}
           placeholder={'Background Image URL'}
-          value={backgroundImageURL}
-          onChangeText={setBackgroundImageURL}
+          value={settings.backgroundImageURL}
+          onChangeText={text =>
+            updateSettings({...settings, backgroundImageURL: text})
+          }
         />
         <TextInput
           label={'Toolbar Hide Timeout'}
           placeholder={'ToolBar Hide Timeout'}
-          value={toolbarHideTimeout}
-          onChangeText={setToolbarHideTimeout}
+          value={settings.toolbarHideTimeout}
+          onChangeText={text =>
+            updateSettings({...settings, toolbarHideTimeout: text})
+          }
         />
         <TextInput
           label={'Customer Label'}
           placeholder={'Customer Label'}
-          value={customerLabel}
-          onChangeText={setCustomerLabel}
+          value={settings.customerLabel}
+          onChangeText={text =>
+            updateSettings({...settings, customerLabel: text})
+          }
         />
         <TextInput
           label={'Agent Waiting Timeout'}
           placeholder={'Agent Waiting Timeout'}
-          value={agentWaitingTimeout}
-          onChangeText={setAgentWaitingTimeout}
+          value={settings.agentWaitingTimeout}
+          onChangeText={text =>
+            updateSettings({...settings, agentWaitingTimeout: text})
+          }
         />
         <View style={styles.option}>
           <Switch
-            value={showAgentBusyDialog}
-            onValueChange={setShowAgentBusyDialog}
+            value={settings.showAgentBusyDialog}
+            onValueChange={text =>
+              updateSettings({...settings, showAgentBusyDialog: text})
+            }
           />
           <Label style={styles.optionLabel}>Show Agent Busy Dialog</Label>
         </View>
         <View style={styles.option}>
           <Switch
-            value={allowVisitorSwitchAudioToVideo}
-            onValueChange={setAllowVisitorSwitchAudioToVideo}
+            value={settings.allowVisitorSwitchAudioToVideo}
+            onValueChange={text =>
+              updateSettings({
+                ...settings,
+                allowVisitorSwitchAudioToVideo: text,
+              })
+            }
           />
           <Label style={styles.optionLabel}>
             Allow visitor to switch audio call to Video Call
@@ -94,8 +94,10 @@ export const AdvanceSettings = () => {
         </View>
         <View style={styles.option}>
           <Switch
-            value={callWithPictureInPicture}
-            onValueChange={setCallWithPictureInPicture}
+            value={settings.callWithPictureInPicture}
+            onValueChange={text =>
+              updateSettings({...settings, callWithPictureInPicture: text})
+            }
           />
           <Label style={styles.optionLabel}>
             Start Call With Picture In Picture Mode
@@ -103,19 +105,31 @@ export const AdvanceSettings = () => {
         </View>
         <View style={styles.option}>
           <Switch
-            value={callWithSpeakerPhone}
-            onValueChange={setCallWithSpeakerPhone}
+            value={settings.callWithSpeakerPhone}
+            onValueChange={text =>
+              updateSettings({...settings, callWithSpeakerPhone: text})
+            }
           />
           <Label style={styles.optionLabel}>
             Start Call With Speaker Phone
           </Label>
         </View>
         <View style={styles.option}>
-          <Switch value={hideAvatar} onValueChange={setHideAvatar} />
+          <Switch
+            value={settings.hideAvatar}
+            onValueChange={text =>
+              updateSettings({...settings, hideAvatar: text})
+            }
+          />
           <Label style={styles.optionLabel}>Hide Avatar</Label>
         </View>
         <View style={styles.option}>
-          <Switch value={hideName} onValueChange={setHideName} />
+          <Switch
+            value={settings.hideName}
+            onValueChange={text =>
+              updateSettings({...settings, hideName: text})
+            }
+          />
           <Label style={styles.optionLabel}>Hide Name</Label>
         </View>
       </ScrollView>

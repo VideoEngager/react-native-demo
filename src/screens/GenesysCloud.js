@@ -11,49 +11,7 @@ const {VeReactModule} = NativeModules;
 
 export const GenesysCloudDemo = () => {
   const navigation = useNavigation();
-  const {
-    customerName,
-    organizationId,
-    deploymentId,
-    videoengagerUrl,
-    tenantId,
-    environment,
-    avatarImageUrl,
-    informationLabelText,
-    backgroundImageURL,
-    toolbarHideTimeout,
-    customerLabel,
-    agentWaitingTimeout,
-    showAgentBusyDialog,
-    allowVisitorSwitchAudioToVideo,
-    callWithPictureInPicture,
-    callWithSpeakerPhone,
-    hideAvatar,
-    hideName,
-    queue,
-  } = useSettings();
-
-  const config = {
-    customerName,
-    organizationId,
-    deploymentId,
-    videoengagerUrl,
-    tenantId,
-    environment,
-    avatarImageUrl,
-    informationLabelText,
-    backgroundImageURL,
-    toolbarHideTimeout,
-    customerLabel,
-    agentWaitingTimeout,
-    showAgentBusyDialog,
-    allowVisitorSwitchAudioToVideo,
-    callWithPictureInPicture,
-    callWithSpeakerPhone,
-    hideAvatar,
-    hideName,
-    queue,
-  };
+  const {settings} = useSettings();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -69,7 +27,7 @@ export const GenesysCloudDemo = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => VeReactModule.ClickToVideo(JSON.stringify(config))}>
+          onPress={() => VeReactModule.ClickToVideo(JSON.stringify(settings))}>
           <Label>Start Video</Label>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => {}}>

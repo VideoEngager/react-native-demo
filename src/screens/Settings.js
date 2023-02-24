@@ -10,78 +10,79 @@ import Header from '../components/Header';
 import {Label} from '../components/Label';
 import {TextInput} from '../components/TextInput';
 import {useSettings} from '../contexts/Settings';
+import ResetIcon from '../icons/ResetIcon';
 
 export const Settings = () => {
   const navigation = useNavigation();
-  const {
-    customerName,
-    organizationId,
-    deploymentId,
-    videoengagerUrl,
-    tenantId,
-    environment,
-    queue,
-    setCustomerName,
-    setOrganizationId,
-    setDeploymentId,
-    setVideoengagerUrl,
-    setTenantId,
-    setEnvironment,
-    setQueue,
-  } = useSettings();
+  const {settings, updateSettings, resetSettings} = useSettings();
   return (
     <SafeAreaView style={styles.container}>
-      <Header title={'Settings'} onPressLeft={navigation.goBack} />
+      <Header
+        title={'Settings'}
+        onPressLeft={navigation.goBack}
+        rightIcon={<ResetIcon />}
+        onPressRight={() => resetSettings()}
+      />
 
       <ScrollView style={styles.wrapper}>
         <TextInput
           style={styles.btnText}
           label={'Customer Name'}
           placeholder={'Customer Name'}
-          value={customerName}
-          onChangeText={setCustomerName}
+          value={settings.customerName}
+          onChangeText={text =>
+            updateSettings({...settings, customerName: text})
+          }
         />
         <TextInput
           style={styles.btnText}
           label={'Organization Id'}
           placeholder={'Organization Id'}
-          value={organizationId}
-          onChangeText={setOrganizationId}
+          value={settings.organizationId}
+          onChangeText={text =>
+            updateSettings({...settings, organizationId: text})
+          }
         />
         <TextInput
           style={styles.btnText}
           label={'Deployment Id'}
           placeholder={'Deployment Id'}
-          value={deploymentId}
-          onChangeText={setDeploymentId}
+          value={settings.deploymentId}
+          onChangeText={text =>
+            updateSettings({...settings, deploymentId: text})
+          }
         />
         <TextInput
           style={styles.btnText}
           label={'Videoengager Url'}
           placeholder={'Videoengager Url'}
-          value={videoengagerUrl}
-          onChangeText={setVideoengagerUrl}
+          value={settings.videoengagerUrl}
+          onChangeText={text =>
+            updateSettings({...settings, videoengagerUrl: text})
+          }
         />
         <TextInput
           style={styles.btnText}
           label={'Tenant Id'}
           placeholder={'Tenant Id'}
-          value={tenantId}
-          onChangeText={setTenantId}
+          value={settings.tenantId}
+          onChangeText={text => updateSettings({...settings, tenantId: text})}
         />
         <TextInput
           style={styles.btnText}
           label={'Environment'}
           placeholder={'Environment'}
-          value={environment}
-          onChangeText={setEnvironment}
+          value={settings.environment}
+          onChangeText={text =>
+            updateSettings({...settings, environment: text})
+          }
         />
         <TextInput
           style={styles.btnText}
           label={'Queue'}
           placeholder={'Queue'}
-          value={queue}
-          onChangeText={setQueue}
+          value={settings.queue}
+          onChangeText={text => updateSettings({...settings, queue: text})}
         />
         <TouchableOpacity
           style={styles.button}
