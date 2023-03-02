@@ -1,5 +1,6 @@
 package com.vetest;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,15 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.videoengager.sdk.VideoEngager;
 import com.videoengager.sdk.model.Error;
 import com.videoengager.sdk.model.Settings;
 
-// import java.util.HashMap;
-// import java.util.Map;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class VeReactModule extends ReactContextBaseJavaModule {
     @NonNull
@@ -39,10 +43,6 @@ public class VeReactModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void ClickToVideo(String initSettingsJson) {
         VeInitSettings veInitSettings = new Gson().fromJson(initSettingsJson,VeInitSettings.class);
-
-//        HashMap<String,Object> customFields = new HashMap<>();
-//        customFields.put("somesh","hello");
-
         Settings settings = new Settings(
                 veInitSettings.organizationId,
                 veInitSettings.deploymentId,
@@ -56,7 +56,7 @@ public class VeReactModule extends ReactContextBaseJavaModule {
                 "",
                 "test@test.com","",
                 VideoEngager.Language.ENGLISH,null,null,null,
-                null,
+                veInitSettings.customFields,
                 veInitSettings.avatarImageUrl,
                 veInitSettings.allowVisitorSwitchAudioToVideo,
                 veInitSettings.informationLabelText,
@@ -74,18 +74,18 @@ public class VeReactModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void CallWithShortUrl(String veShortUrl) {
-        String CallerName = "ShortUrl Visitor";
+    public void CallWithShortUrl(String initSettingsJson, String veShortUrl) {
+        VeInitSettings veInitSettings = new Gson().fromJson(initSettingsJson,VeInitSettings.class);
         Settings settings = new Settings(
-                "639292ca-14a2-400b-8670-1f545d8aa860",
-                "1b4b1124-b51c-4c38-899f-3a90066c76cf",
-                "staging.videoengager.com",
-                "oIiTR2XQIkb7p0ub",
-                "https://api.mypurecloud.de",
-                "Support",
+                veInitSettings.organizationId,
+                veInitSettings.deploymentId,
+                veInitSettings.videoengagerUrl,
+                veInitSettings.tenantId,
+                veInitSettings.environment,
+                veInitSettings.queue,
                 "mobiledev",
-                CallerName,
-                CallerName,
+                veInitSettings.customerName,
+                veInitSettings.customerName,
                 "",
                 "test@test.com","",
                 VideoEngager.Language.ENGLISH,null,null,null,null,

@@ -4,6 +4,7 @@ import {StyleSheet, View, NativeModules, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import {Label} from '../components/Label';
+import {useInteraction} from '../contexts/Interaction';
 import {useSettings} from '../contexts/Settings';
 import SettingsIcon from '../icons/SettingsIcon';
 
@@ -12,6 +13,7 @@ const {VeReactModule} = NativeModules;
 export const GenesysCloudDemo = () => {
   const navigation = useNavigation();
   const {settings} = useSettings();
+  const {interactionInProgress} = useInteraction();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -26,9 +28,10 @@ export const GenesysCloudDemo = () => {
           <Label>Start Audio</Label>
         </TouchableOpacity> */}
         <TouchableOpacity
+          disabled={interactionInProgress}
           style={styles.button}
           onPress={() => VeReactModule.ClickToVideo(JSON.stringify(settings))}>
-          <Label>Start Video</Label>
+          <Label>{'Start Video'}</Label>
         </TouchableOpacity>
         {/* <TouchableOpacity style={styles.button} onPress={() => {}}>
           <Label>Start Chat</Label>

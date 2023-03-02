@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useInteraction} from '../contexts/Interaction';
 import ArrowLeftIcon from '../icons/ArrowLeftIcon';
+import {Label} from './Label';
 
 const Header = ({
   title,
@@ -15,9 +17,15 @@ const Header = ({
   rightIcon,
   onPressRight,
 }) => {
+  const {interactionInProgress} = useInteraction();
   return (
     <View style={styles.container}>
       <StatusBar />
+      {interactionInProgress && (
+        <View style={styles.callStatus}>
+          <Label style={styles.callText}>CALL IN PROGRESS...</Label>
+        </View>
+      )}
       <View style={styles.header}>
         <View style={styles.left}>
           {onPressLeft ? (
@@ -96,5 +104,18 @@ const styles = StyleSheet.create({
 
   iconRight: {
     marginBottom: 10,
+  },
+
+  callStatus: {
+    height: 30,
+    backgroundColor: '#1fe053',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  callText: {
+    color: '#000000',
+    fontSize: 10,
+    justifyContent: 'center',
   },
 });

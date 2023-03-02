@@ -1,5 +1,7 @@
 package com.vetest;
 
+import java.util.HashMap;
+
 public class VeInitSettings {
     public String customerName;
     public String organizationId;
@@ -8,6 +10,7 @@ public class VeInitSettings {
     public String tenantId;
     public String environment;
     public String queue;
+    public HashMap<String,Object> customFields;
     public String avatarImageUrl;
     public String informationLabelText;
     public String backgroundImageURL;
