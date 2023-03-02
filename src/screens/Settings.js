@@ -124,5 +124,8 @@ const styles = StyleSheet.create({
   btnText: {
     color: 'black',
     borderWidth: 1,
+    borderRadius: 10,
+    height: 44,
+    paddingHorizontal: 10,
   },
 });

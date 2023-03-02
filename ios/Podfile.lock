@@ -374,6 +374,8 @@ PODS:
     - React-jsi (= 0.70.2)
     - React-logger (= 0.70.2)
     - React-perflogger (= 0.70.2)
+  - RNCAsyncStorage (1.17.11):
+    - React-Core
   - RNGestureHandler (2.9.0):
     - React-Core
   - RNScreens (3.20.0):
@@ -381,7 +383,8 @@ PODS:
     - React-RCTImage
   - RNSVG (13.8.0):
     - React-Core
-  - SmartVideo (1.13.7):
+  - SmartVideo (1.14.2):
+    - CocoaAsyncSocket (= 7.6.5)
     - WebRTC-lib (= 104.0.0)
   - SocketRocket (0.6.0)
   - WebRTC-lib (104.0.0)
@@ -449,6 +452,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
@@ -544,6 +548,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNScreens:
@@ -601,10 +607,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 89e2cbea456ac5ec623943661d00e4dc45fe74b9
   React-runtimeexecutor: 80065f60af4f4b05603661070c8622bb3740bf16
   ReactCommon: 1209130f460e4aa9d255ddc75fa0a827ebf93dfb
+  RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
-  SmartVideo: 7dbac046321d2120ed64eea07cb1896754f2a71c
+  SmartVideo: 13f9f30a133d47fc6a7f7ec7087f35d02aed8713
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   WebRTC-lib: 6c387d63a8d649e8171f548a67b740127cc299b3
   Yoga: 043f8eb97345d0171f27fead4d1849cacf0472a5

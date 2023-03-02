@@ -22,20 +22,20 @@ export const GenesysCloudDemo = () => {
         onPressRight={() => navigation.navigate('Settings')}
       />
       <View style={styles.wrapper}>
-        <TouchableOpacity style={styles.button} onPress={null}>
+        {/* <TouchableOpacity style={styles.button} onPress={null}>
           <Label>Start Audio</Label>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity
           style={styles.button}
           onPress={() => VeReactModule.ClickToVideo(JSON.stringify(settings))}>
           <Label>Start Video</Label>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
+        {/* <TouchableOpacity style={styles.button} onPress={() => {}}>
           <Label>Start Chat</Label>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => {}}>
           <Label>Request Schedule Meeting</Label>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );

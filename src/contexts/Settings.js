@@ -7,14 +7,31 @@ import React, {
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// staging
+// eslint-disable-next-line no-unused-vars
+const stagingConfig = {
+  customerName: 'Mobile Demo Tester',
+  organizationId: '639292ca-14a2-400b-8670-1f545d8aa860',
+  deploymentId: '1b4b1124-b51c-4c38-899f-3a90066c76cf',
+  videoengagerUrl: 'staging.videoengager.com',
+  tenantId: 'oIiTR2XQIkb7p0ub',
+  environment: 'https://api.mypurecloud.de',
+};
+
+// prod
+// eslint-disable-next-line no-unused-vars
+const prodConfig = {
+  customerName: 'Android Demo Tester',
+  organizationId: 'c4b553c3-ee42-4846-aeb1-f0da3d85058e',
+  deploymentId: '973f8326-c601-40c6-82ce-b87e6dafef1c',
+  videoengagerUrl: 'https://videome.videoengager.com',
+  tenantId: 'hbvvUTaZxCVLikpB',
+  environment: 'https://api.mypurecloud.com',
+};
+
 const initialState = {
   settings: {
-    customerName: 'Android Demo Tester',
-    organizationId: 'c4b553c3-ee42-4846-aeb1-f0da3d85058e',
-    deploymentId: '973f8326-c601-40c6-82ce-b87e6dafef1c',
-    videoengagerUrl: 'https://videome.videoengager.com',
-    tenantId: 'hbvvUTaZxCVLikpB',
-    environment: 'https://api.mypurecloud.com',
+    ...stagingConfig,
     queue: 'Support',
     avatarImageUrl: '',
     informationLabelText: '',
@@ -51,7 +68,7 @@ export const SettingsProvider = ({...rest}) => {
 
   const getSettings = useCallback(async () => {
     const data = await AsyncStorage.getItem('GENESYSCLOUD_SETTINGS');
-    return data !== undefined ? JSON.parse(data) : {...initialState.settings};
+    return !data ? initialState.settings : JSON.parse(data);
   }, []);
 
   const updateState = useCallback(async () => {
@@ -69,9 +86,13 @@ export const SettingsProvider = ({...rest}) => {
 
   useEffect(() => {
     updateState();
-  }, [updateState]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
+    if (JSON.stringify(settings) === JSON.stringify(initialState.settings)) {
+      return;
+    }
     saveSettings();
   }, [saveSettings, settings]);
 

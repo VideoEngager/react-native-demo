@@ -16,6 +16,9 @@ import com.videoengager.sdk.VideoEngager;
 import com.videoengager.sdk.model.Error;
 import com.videoengager.sdk.model.Settings;
 
+// import java.util.HashMap;
+// import java.util.Map;
+
 public class VeReactModule extends ReactContextBaseJavaModule {
     @NonNull
     @Override
@@ -36,6 +39,10 @@ public class VeReactModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void ClickToVideo(String initSettingsJson) {
         VeInitSettings veInitSettings = new Gson().fromJson(initSettingsJson,VeInitSettings.class);
+
+//        HashMap<String,Object> customFields = new HashMap<>();
+//        customFields.put("somesh","hello");
+
         Settings settings = new Settings(
                 veInitSettings.organizationId,
                 veInitSettings.deploymentId,
@@ -48,7 +55,8 @@ public class VeReactModule extends ReactContextBaseJavaModule {
                 veInitSettings.customerName,
                 "",
                 "test@test.com","",
-                VideoEngager.Language.ENGLISH,null,null,null,null,
+                VideoEngager.Language.ENGLISH,null,null,null,
+                null,
                 veInitSettings.avatarImageUrl,
                 veInitSettings.allowVisitorSwitchAudioToVideo,
                 veInitSettings.informationLabelText,
@@ -80,11 +88,11 @@ public class VeReactModule extends ReactContextBaseJavaModule {
     public void CallWithShortUrl(String veShortUrl) {
         String CallerName = "ShortUrl Visitor";
         Settings settings = new Settings(
-                "c4b553c3-ee42-4846-aeb1-f0da3d85058e",
-                "973f8326-c601-40c6-82ce-b87e6dafef1c",
-                "https://videome.videoengager.com",
-                "0FphTk091nt7G1W7",
-                "https://api.mypurecloud.com",
+                "639292ca-14a2-400b-8670-1f545d8aa860",
+                "1b4b1124-b51c-4c38-899f-3a90066c76cf",
+                "staging.videoengager.com",
+                "oIiTR2XQIkb7p0ub",
+                "https://api.mypurecloud.de",
                 "Support",
                 "mobiledev",
                 CallerName,

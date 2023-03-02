@@ -26,12 +26,14 @@ ios/.xcode.env.local
 #
 build/
 release/
+debug/
 .idea
 .gradle
 local.properties
 *.iml
 *.hprof
 .cxx/
+tmp/
 
 # node.js
 #
