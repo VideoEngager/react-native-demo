@@ -70,18 +70,7 @@ public class VeReactModule extends ReactContextBaseJavaModule {
         );
         VideoEngager ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.genesys );
         ve.Connect(VideoEngager.CallType.video);
-        ve.setOnEventListener(new VideoEngager.EventListener() {
-            @Override
-            public boolean onError(@NonNull Error error) {
-                sendEvent("Ve_onError", new Gson().toJson(error));
-                return super.onError(error);
-            }
-
-            @Override
-            public void onMessageAndTimeStampReceived(@NonNull String timestamp, @NonNull String message) {
-                 sendEvent("Ve_onChatMessage", message);
-            }
-        });
+        ve.setOnEventListener(listener);
     }
 
     @ReactMethod
@@ -106,19 +95,31 @@ public class VeReactModule extends ReactContextBaseJavaModule {
         VideoEngager ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.generic );
         ve.Connect(VideoEngager.CallType.video);
         ve.VeVisitorVideoCall(veShortUrl);
-        ve.setOnEventListener(new VideoEngager.EventListener() {
-            @Override
-            public boolean onError(@NonNull Error error) {
-                sendEvent("Ve_onError", new Gson().toJson(error));
-                return super.onError(error);
-            }
-
-            @Override
-            public void onMessageAndTimeStampReceived(@NonNull String timestamp, @NonNull String message) {
-                sendEvent("Ve_onChatMessage", message);
-            }
-        });
+        ve.setOnEventListener(listener);
     }
+
+    private VideoEngager.EventListener listener = new VideoEngager.EventListener() {
+        @Override
+        public void onCallStarted() {
+            sendEvent("Ve_onCallStarted", "");
+        }
+
+        @Override
+        public void onCallFinished() {
+            sendEvent("Ve_onCallFinished", "");
+        }
+
+        @Override
+        public boolean onError(@NonNull Error error) {
+            sendEvent("Ve_onError", new Gson().toJson(error));
+            return super.onError(error);
+        }
+
+        @Override
+        public void onMessageAndTimeStampReceived(@NonNull String timestamp, @NonNull String message) {
+            sendEvent("Ve_onChatMessage", message);
+        }
+    };
 
     @ReactMethod
     public void addListener(String eventName) {
