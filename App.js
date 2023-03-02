@@ -65,7 +65,7 @@ const isValidUrl = urlString => {
   }
 };
 
-const getArticlesFromApi = async veShortUrl => {
+const findByCode = async (veShortUrl, settings) => {
   try {
     const shortCode = veShortUrl.substring(veShortUrl.lastIndexOf('/') + 1);
     return await fetch(
@@ -87,7 +87,7 @@ const processIncomingUrl = async (veShortUrl, settings) => {
     console.log('Url not supported. exiting...');
     return;
   }
-  const data = await getArticlesFromApi(veShortUrl);
+  const data = await findByCode(veShortUrl, settings);
 
   if (isValidUrl(data.url)) {
     const url = new URL(data.url);
