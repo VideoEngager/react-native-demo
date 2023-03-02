@@ -98,6 +98,16 @@ public class VeReactModule extends ReactContextBaseJavaModule {
         ve.setOnEventListener(listener);
     }
 
+    @ReactMethod
+    public void SetRestricted(String data){
+        VideoEngager.Companion.VeForcePauseScreenShare(getCurrentActivity());
+    }
+
+    @ReactMethod
+    public void ClearRestricted(String data){
+        VideoEngager.Companion.VeForceResumeScreenShare(getCurrentActivity());
+    }
+
     private VideoEngager.EventListener listener = new VideoEngager.EventListener() {
         @Override
         public void onCallStarted() {
