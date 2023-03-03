@@ -69,7 +69,7 @@ const findByCode = async (veShortUrl, settings) => {
   try {
     const shortCode = veShortUrl.substring(veShortUrl.lastIndexOf('/') + 1);
     return await fetch(
-      `https://staging.leadsecure.com/api/shorturls/findByCode/${shortCode}`,
+      `https://${settings.videoengagerUrl}/api/shorturls/findByCode/${shortCode}`,
     ).then(response => response.json());
   } catch (ex) {
     console.log('ex: ' + ex);
@@ -96,7 +96,7 @@ const processIncomingUrl = async (veShortUrl, settings) => {
     const fields = JSON.parse(base64Decoded).ud || [];
     let customFields = {};
     fields.map(field => {
-      customFields[field.label] = field.value;
+      customFields[field.name] = field.value;
     });
     VeReactModule.ClickToVideo(
       JSON.stringify({...settings, customFields: customFields}),
