@@ -1,16 +1,33 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {ScrollView, StyleSheet, Switch, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {
+  NativeModules,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  View,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../components/Header';
 import {Label} from '../components/Label';
 import {TextInput} from '../components/TextInput';
+import {useInteraction} from '../contexts/Interaction';
 import {useSettings} from '../contexts/Settings';
 import ResetIcon from '../icons/ResetIcon';
 
 export const AdvanceSettings = () => {
   const navigation = useNavigation();
   const {settings, updateSettings, resetSettings} = useSettings();
+  const {interactionInProgress} = useInteraction();
+  const {VeReactModule} = NativeModules;
+
+  useEffect(() => {
+    if (interactionInProgress) {
+      VeReactModule.SetRestricted(null);
+    }
+    return () => VeReactModule.ClearRestricted(null);
+  }, [VeReactModule, interactionInProgress]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Header
