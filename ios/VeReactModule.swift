@@ -35,61 +35,54 @@ struct GenesysSettings: Decodable {
 @objc(VeReactModule)
 class VeReactModule: RCTEventEmitter {
   
-  var configurations: GenesysConfigurations?
-  
-  @objc(Setup:)
-  func Setup(OrganizationID: String,
-             DeploymentID: String,
-             TenantId: String,
-             EnvironmentURL: String,
-             Queue: String,
-             SmartVideoURL: String)
-  {
-    self.configurations = GenesysConfigurations(environment: .live,
-                                                organizationID: OrganizationID,
-                                                deploymentID: TenantId,
-                                                tenantId: EnvironmentURL,
-                                                environmentURL: EnvironmentURL,
-                                                queue: Queue,
-                                                engineUrl: SmartVideoURL)
-  }
-  
   @objc(ClickToVideo:)
-  func ClickToVideo(CallerName: String) {
-
-    // let jsonData = SettingsJSON.data(using: .utf8)!
-    // let Settings: GenesysSettings = try! JSONDecoder().decode(GenesysSettings.self, from: jsonData)
-
-    // let customFields = ["firstName": Settings.customerName,
-    //                     "lastName": Settings.customerName] as [String : Any]
-    // let memberInfo = ["displayName": Settings.customerName,
-    //                   "customFields": customFields] as [String : Any]
-
-    // let configurations = GenesysConfigurations(environment: .live, organizationID: Settings.organizationId, deploymentID: Settings.deploymentId, tenantId: Settings.tenantId, environmentURL: Settings.environment, queue: Settings.queue, engineUrl: Settings.videoengagerUrl)
+  func ClickToVideo(settingsJSON: String) {
     
-    guard let configurations = self.configurations else {
-      let e = ["description": "SmartVideo parameters are not setup. Please use 'Setup' method to setup the parameters."]
+    guard let jsonData = settingsJSON.data(using: .utf8),
+              let settings = try? JSONDecoder().decode(VeInitSettings.self, from: jsonData)
+    else {
+      let e = ["description": "SmartVideo parameters are not setup correctly."]
       let json = try? JSONEncoder().encode(e)
       self.sendEvent(withName: "Ve_onError", body: json)
       return
     }
 
-    let customFields = ["firstName": CallerName,
-                      "lastName": CallerName] as [String : Any]
-    let memberInfo = ["displayName": CallerName,
+    let customFields = ["firstName": settings.customerName,
+                      "lastName": settings.customerName] as [String : Any]
+    let memberInfo = ["displayName": settings.customerName,
                     "customFields": customFields] as [String : Any]
+    
+    let opcvs = GenesysEngineSettings.OutgoingPreCallViewSettings(hideAvatar: settings.hideAvatar,
+                                                                  hideName: settings.hideName)
+    let icvs = GenesysEngineSettings.InCallViewSettings(toolBarHideTimeout: Int(settings.toolbarHideTimeout) ?? 40)
+    
+    let ges = GenesysEngineSettings(agentWaitingTimeout: Int(settings.agentWaitingTimeout),
+                                    customerLabel: settings.customerLabel,
+                                    allowVisitorToSwitchAudioCallToVideoCall: settings.allowVisitorSwitchAudioToVideo,
+                                    backgroundImageURL: settings.backgroundImageURL,
+                                    outgoingCallViewSettings: opcvs,
+                                    inCallViewSettings: icvs
+    )
 
 //    let configurations = GenesysConfigurations(environment: .staging,
-//                            organizationID: "639292ca-14a2-400b-8670-1f545d8aa860",
-//                            deploymentID: "1b4b1124-b51c-4c38-899f-3a90066c76cf",
-//                            tenantId: "oIiTR2XQIkb7p0ub",
-//                            environmentURL: "https://api.mypurecloud.de",
-//                            queue: "Support",
-//                            engineUrl: "staging.videoengager.com")
+//                                               organizationID: settings.organizationId,
+//                                               deploymentID: settings.deploymentId,
+//                                               tenantId: settings.tenantId,
+//                                               environmentURL: settings.environment,
+//                                               queue: settings.queue,
+//                                               engineUrl: settings.videoengagerUrl)
+    let configurations = GenesysConfigurations(environment: .staging,
+                            organizationID: "639292ca-14a2-400b-8670-1f545d8aa860",
+                            deploymentID: "1b4b1124-b51c-4c38-899f-3a90066c76cf",
+                            tenantId: "oIiTR2XQIkb7p0ub",
+                            environmentURL: "https://api.mypurecloud.de",
+                            queue: "Support",
+                            engineUrl: "staging.videoengager.com")
+
                             
 
     // let engine = GenesysEngine(environment: .live, isVideo: true, memberInfo: memberInfo)
-    let engine = GenesysEngine(environment: .live, isVideo: true, configurations: configurations, memberInfo: memberInfo)
+    let engine = GenesysEngine(environment: .live, isVideo: true, configurations: configurations, settings: ges, memberInfo: memberInfo)
     let lang = "en_US"
     SmartVideo.delegate = self
     SmartVideo.chatDelegate = self
@@ -104,8 +97,18 @@ class VeReactModule: RCTEventEmitter {
     SmartVideo.veVisitorVideoCall(link: url)
   }
   
+  @objc(SetRestricted:)
+  public func SetRestricted(data: String){
+    SmartVideo.forbidShareScreen()
+  }
+
+  @objc(ClearRestricted:)
+  public func ClearRestricted(data: String){
+    SmartVideo.allowShareScreen()
+  }
+  
   open override func supportedEvents() -> [String]! {
-    return ["Ve_onError", "Ve_onChatMessage"]
+    return ["Ve_onError", "Ve_onChatMessage", "Ve_onCallStarted", "Ve_onCallFinished", "Ve_onCallHold"]
   }
 }
 
@@ -127,7 +130,16 @@ extension VeReactModule: SmartVideoDelegate {
   }
   
   func callStatusChanged(status: SmartVideoSDK.SmartVideoCallStatus) {
-    print("3")
+    switch status {
+    case .interactionStarted: break
+    case .interactionEstablished: break
+    case .callWaiting: break
+    case .callStarted: self.sendEvent(withName: "Ve_onCallStarted", body: "")
+    case .callOnHold: self.sendEvent(withName: "Ve_onCallHold", body: "")
+    case .callHanguped: break
+    case .callFinished: self.sendEvent(withName: "Ve_onCallFinished", body: "")
+    @unknown default: break
+    }
   }
   
   func errorHandler(error: SmartVideoError) {
@@ -150,4 +162,28 @@ extension VeReactModule: SmartVideoChatDelegate {
         self.sendEvent(withName: "Ve_onChatMessage", body: message.message)
     }
   }
+}
+
+public struct VeInitSettings: Decodable {
+  public var customerName: String = ""
+  public var organizationId: String = ""
+  public var deploymentId: String = ""
+  public var videoengagerUrl: String = ""
+  public var tenantId: String = ""
+  public var environment: String = ""
+  public var queue: String = ""
+  
+  public var avatarImageUrl: String = ""
+  public var informationLabelText: String = ""
+  public var backgroundImageURL: String = ""
+  public var toolbarHideTimeout: String = ""
+  public var customerLabel: String = ""
+  public var agentWaitingTimeout: String = ""
+  
+  public var showAgentBusyDialog: Bool = false
+  public var allowVisitorSwitchAudioToVideo: Bool = false
+  public var callWithPictureInPicture: Bool = false
+  public var callWithSpeakerPhone: Bool = false
+  public var hideAvatar: Bool = false
+  public var hideName: Bool = false
 }
