@@ -383,7 +383,7 @@ PODS:
     - React-RCTImage
   - RNSVG (13.8.0):
     - React-Core
-  - SmartVideo (1.14.3):
+  - SmartVideo (1.14.4):
     - WebRTC-lib (= 104.0.0)
   - SocketRocket (0.6.0)
   - WebRTC-lib (104.0.0)
@@ -562,7 +562,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SmartVideo:
-    :commit: 407c8ca85c73cce0af51d57549fe79f39ae43ed4
+    :commit: cfe5fba55e7359c2c74d36e42c2d815d5ffbeea9
     :git: https://github.com/VideoEngager/SmartVideo-iOS-SDK
 
 SPEC CHECKSUMS:
@@ -617,7 +617,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
-  SmartVideo: dbadb227abb6f71b0997f5115e25f6bc7fdafa5d
+  SmartVideo: 5833b62fede29e7b6ee4580119e5a1c52e4c5379
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   WebRTC-lib: 6c387d63a8d649e8171f548a67b740127cc299b3
   Yoga: 043f8eb97345d0171f27fead4d1849cacf0472a5

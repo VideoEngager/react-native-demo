@@ -64,22 +64,13 @@ class VeReactModule: RCTEventEmitter {
                                     inCallViewSettings: icvs
     )
 
-//    let configurations = GenesysConfigurations(environment: .staging,
-//                                               organizationID: settings.organizationId,
-//                                               deploymentID: settings.deploymentId,
-//                                               tenantId: settings.tenantId,
-//                                               environmentURL: settings.environment,
-//                                               queue: settings.queue,
-//                                               engineUrl: settings.videoengagerUrl)
     let configurations = GenesysConfigurations(environment: .staging,
-                            organizationID: "639292ca-14a2-400b-8670-1f545d8aa860",
-                            deploymentID: "1b4b1124-b51c-4c38-899f-3a90066c76cf",
-                            tenantId: "oIiTR2XQIkb7p0ub",
-                            environmentURL: "https://api.mypurecloud.de",
-                            queue: "Support",
-                            engineUrl: "staging.videoengager.com")
-
-                            
+                                               organizationID: settings.organizationId,
+                                               deploymentID: settings.deploymentId,
+                                               tenantId: settings.tenantId,
+                                               environmentURL: settings.environment,
+                                               queue: settings.queue,
+                                               engineUrl: settings.videoengagerUrl)
 
     // let engine = GenesysEngine(environment: .live, isVideo: true, memberInfo: memberInfo)
     let engine = GenesysEngine(environment: .live, isVideo: true, configurations: configurations, settings: ges, memberInfo: memberInfo)
