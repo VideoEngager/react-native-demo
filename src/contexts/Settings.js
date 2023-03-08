@@ -7,6 +7,17 @@ import React, {
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// dev
+// eslint-disable-next-line no-unused-vars
+const devConfig = {
+  customerName: 'Dev User',
+  organizationId: '327d10eb-0826-42cd-89b1-353ec67d33f8',
+  deploymentId: 'c2eaaa5c-d755-4e51-9136-b5ee86b92af3',
+  videoengagerUrl: 'dev.videoengager.com',
+  tenantId: 'test_tenant',
+  environment: 'https://api.mypurecloud.au',
+};
+
 // staging
 // eslint-disable-next-line no-unused-vars
 const stagingConfig = {
