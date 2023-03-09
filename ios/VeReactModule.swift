@@ -38,10 +38,21 @@ class VeReactModule: RCTEventEmitter {
   @objc(ClickToVideo:)
   func ClickToVideo(settingsJSON: String) {
     
-    guard let jsonData = settingsJSON.data(using: .utf8),
-              let settings = try? JSONDecoder().decode(VeInitSettings.self, from: jsonData)
-    else {
+    guard let jsonData = settingsJSON.data(using: .utf8) else {
       let e = ["description": "SmartVideo parameters are not setup correctly."]
+      let json = try? JSONEncoder().encode(e)
+      self.sendEvent(withName: "Ve_onError", body: json)
+      return
+    }
+    
+    var settings: VeInitSettings
+    
+    do {
+      settings = try JSONDecoder().decode(VeInitSettings.self, from: jsonData)
+    }
+    catch {
+      print(error)
+      let e = ["description": error.localizedDescription.description]
       let json = try? JSONEncoder().encode(e)
       self.sendEvent(withName: "Ve_onError", body: json)
       return
@@ -56,9 +67,12 @@ class VeReactModule: RCTEventEmitter {
                                                                   hideName: settings.hideName)
     let icvs = GenesysEngineSettings.InCallViewSettings(toolBarHideTimeout: Int(settings.toolbarHideTimeout) ?? 40)
     
+    let sss = GenesysEngineSettings.ShareScreenSettings(isOn: true, appGroupName: "group.com.videoengager.smartvideodemoapp.react")
+    
     let ges = GenesysEngineSettings(agentWaitingTimeout: Int(settings.agentWaitingTimeout),
                                     customerLabel: settings.customerLabel,
                                     allowVisitorToSwitchAudioCallToVideoCall: settings.allowVisitorSwitchAudioToVideo,
+                                    shareScreen: sss,
                                     backgroundImageURL: settings.backgroundImageURL,
                                     outgoingCallViewSettings: opcvs,
                                     inCallViewSettings: icvs

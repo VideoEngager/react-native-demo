@@ -12,9 +12,13 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4D92BDF229B74C0D00BB3315 /* SmartVideo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D92BDF129B74C0D00BB3315 /* SmartVideo-Info.plist */; };
+		4D92BDFC29B9C3F300BB3315 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D92BDFB29B9C3F300BB3315 /* ReplayKit.framework */; };
+		4D92BDFF29B9C3F300BB3315 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92BDFE29B9C3F300BB3315 /* SampleHandler.swift */; };
+		4D92BE0329B9C3F300BB3315 /* Broadcaster.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4D92BDFA29B9C3F300BB3315 /* Broadcaster.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4DD7A7B528FD47640030EA4B /* VeReactModuleC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD7A7B428FD47640030EA4B /* VeReactModuleC.m */; };
 		4DD7A7B628FD7B590030EA4B /* VeReactModuleC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD7A7B428FD47640030EA4B /* VeReactModuleC.m */; };
 		4DD7A7BB28FD810D0030EA4B /* VeReactModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD7A7BA28FD810D0030EA4B /* VeReactModule.swift */; };
+		778277F4F2D1F806BD51622F /* libPods-Broadcaster.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F44EB30D22D0D19F67470673 /* libPods-Broadcaster.a */; };
 		8097AF9629B88476004B8481 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 8097AF9529B88476004B8481 /* main.jsbundle */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		900282A09557346DF7717BC0 /* libPods-VeTest-VeTestTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F72BF462E4E0463548F7FDF8 /* libPods-VeTest-VeTestTests.a */; };
@@ -29,12 +33,34 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = VeTest;
 		};
+		4D92BE0129B9C3F300BB3315 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D92BDF929B9C3F300BB3315;
+			remoteInfo = Broadcaster;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4D92BE0429B9C3F400BB3315 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4D92BE0329B9C3F300BB3315 /* Broadcaster.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* VeTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VeTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* VeTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VeTestTests.m; sourceTree = "<group>"; };
+		0DD59B0601DB0E0624BB272B /* Pods-Broadcaster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Broadcaster.release.xcconfig"; path = "Target Support Files/Pods-Broadcaster/Pods-Broadcaster.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* VeTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = VeTest/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = VeTest/AppDelegate.mm; sourceTree = "<group>"; };
@@ -43,6 +69,11 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VeTest/main.m; sourceTree = "<group>"; };
 		1FFB8DBA62848DB3E07E40B8 /* Pods-VeTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeTest.debug.xcconfig"; path = "Target Support Files/Pods-VeTest/Pods-VeTest.debug.xcconfig"; sourceTree = "<group>"; };
 		4D92BDF129B74C0D00BB3315 /* SmartVideo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SmartVideo-Info.plist"; sourceTree = "<group>"; };
+		4D92BDFA29B9C3F300BB3315 /* Broadcaster.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Broadcaster.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D92BDFB29B9C3F300BB3315 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = System/Library/Frameworks/ReplayKit.framework; sourceTree = SDKROOT; };
+		4D92BDFE29B9C3F300BB3315 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
+		4D92BE0029B9C3F300BB3315 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D92BE0829B9C3FB00BB3315 /* Broadcaster.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Broadcaster.entitlements; sourceTree = "<group>"; };
 		4DD7A7B328FD47090030EA4B /* VeReactModuleC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VeReactModuleC.h; sourceTree = "<group>"; };
 		4DD7A7B428FD47640030EA4B /* VeReactModuleC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VeReactModuleC.m; sourceTree = "<group>"; };
 		4DD7A7B728FD7FB30030EA4B /* VeTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VeTest-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -53,8 +84,10 @@
 		8097AF9529B88476004B8481 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		80B9D2EA29B8CFCA00516D93 /* VeTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = VeTest.entitlements; path = VeTest/VeTest.entitlements; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = VeTest/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		82089A5B9330E7218D168993 /* Pods-Broadcaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Broadcaster.debug.xcconfig"; path = "Target Support Files/Pods-Broadcaster/Pods-Broadcaster.debug.xcconfig"; sourceTree = "<group>"; };
 		C64C7D08A180E1B2A927BDED /* libPods-VeTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VeTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F44EB30D22D0D19F67470673 /* libPods-Broadcaster.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Broadcaster.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F72BF462E4E0463548F7FDF8 /* libPods-VeTest-VeTestTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VeTest-VeTestTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,6 +105,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				91C98F5B2A8D1DC5A4A7DECE /* libPods-VeTest.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D92BDF729B9C3F300BB3315 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D92BDFC29B9C3F300BB3315 /* ReplayKit.framework in Frameworks */,
+				778277F4F2D1F806BD51622F /* libPods-Broadcaster.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,8 +162,20 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				C64C7D08A180E1B2A927BDED /* libPods-VeTest.a */,
 				F72BF462E4E0463548F7FDF8 /* libPods-VeTest-VeTestTests.a */,
+				4D92BDFB29B9C3F300BB3315 /* ReplayKit.framework */,
+				F44EB30D22D0D19F67470673 /* libPods-Broadcaster.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D92BDFD29B9C3F300BB3315 /* Broadcaster */ = {
+			isa = PBXGroup;
+			children = (
+				4D92BE0829B9C3FB00BB3315 /* Broadcaster.entitlements */,
+				4D92BDFE29B9C3F300BB3315 /* SampleHandler.swift */,
+				4D92BE0029B9C3F300BB3315 /* Info.plist */,
+			);
+			path = Broadcaster;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -138,6 +192,7 @@
 				13B07FAE1A68108700A75B9A /* VeTest */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* VeTestTests */,
+				4D92BDFD29B9C3F300BB3315 /* Broadcaster */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -152,6 +207,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* VeTest.app */,
 				00E356EE1AD99517003FC87E /* VeTestTests.xctest */,
+				4D92BDFA29B9C3F300BB3315 /* Broadcaster.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,6 +219,8 @@
 				56216FA81870AEF9143FA17C /* Pods-VeTest.release.xcconfig */,
 				663FBF7537B3EAC20FCE30DA /* Pods-VeTest-VeTestTests.debug.xcconfig */,
 				6A3166526963CC7F57E52E93 /* Pods-VeTest-VeTestTests.release.xcconfig */,
+				82089A5B9330E7218D168993 /* Pods-Broadcaster.debug.xcconfig */,
+				0DD59B0601DB0E0624BB272B /* Pods-Broadcaster.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -203,15 +261,35 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				BE95A84E49A390946520C72F /* [CP] Embed Pods Frameworks */,
 				512DC300ADEBBC4BDC6964C1 /* [CP] Copy Pods Resources */,
+				4D92BE0429B9C3F400BB3315 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4D92BE0229B9C3F300BB3315 /* PBXTargetDependency */,
 			);
 			name = VeTest;
 			productName = VeTest;
 			productReference = 13B07F961A680F5B00A75B9A /* VeTest.app */;
 			productType = "com.apple.product-type.application";
+		};
+		4D92BDF929B9C3F300BB3315 /* Broadcaster */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D92BE0729B9C3F400BB3315 /* Build configuration list for PBXNativeTarget "Broadcaster" */;
+			buildPhases = (
+				12083D4F4569198D4760B3E7 /* [CP] Check Pods Manifest.lock */,
+				4D92BDF629B9C3F300BB3315 /* Sources */,
+				4D92BDF729B9C3F300BB3315 /* Frameworks */,
+				4D92BDF829B9C3F300BB3315 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Broadcaster;
+			productName = Broadcaster;
+			productReference = 4D92BDFA29B9C3F300BB3315 /* Broadcaster.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -219,6 +297,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -227,6 +306,9 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1400;
+					};
+					4D92BDF929B9C3F300BB3315 = {
+						CreatedOnToolsVersion = 14.2;
 					};
 				};
 			};
@@ -245,6 +327,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* VeTest */,
 				00E356ED1AD99517003FC87E /* VeTestTests */,
+				4D92BDF929B9C3F300BB3315 /* Broadcaster */,
 			);
 		};
 /* End PBXProject section */
@@ -268,6 +351,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4D92BDF829B9C3F300BB3315 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -286,6 +376,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		12083D4F4569198D4760B3E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Broadcaster-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		3E589D0748793A01A9106666 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -441,6 +553,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4D92BDF629B9C3F300BB3315 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D92BDFF29B9C3F300BB3315 /* SampleHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -448,6 +568,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* VeTest */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		4D92BE0229B9C3F300BB3315 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D92BDF929B9C3F300BB3315 /* Broadcaster */;
+			targetProxy = 4D92BE0129B9C3F300BB3315 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -509,6 +634,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1FFB8DBA62848DB3E07E40B8 /* Pods-VeTest.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = VeTest/VeTest.entitlements;
@@ -593,6 +719,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 56216FA81870AEF9143FA17C /* Pods-VeTest.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = VeTest/VeTest.entitlements;
@@ -619,6 +746,88 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "VeTest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		4D92BE0529B9C3F400BB3315 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 82089A5B9330E7218D168993 /* Pods-Broadcaster.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = Broadcaster/Broadcaster.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = SNXJNLUKY6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Broadcaster/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SmartVideo React";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.videoengager.smartvideodemoapp.react.Broadcaster;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4D92BE0629B9C3F400BB3315 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DD59B0601DB0E0624BB272B /* Pods-Broadcaster.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = Broadcaster/Broadcaster.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = SNXJNLUKY6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Broadcaster/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "SmartVideo React";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.videoengager.smartvideodemoapp.react.Broadcaster;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -776,6 +985,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D92BE0729B9C3F400BB3315 /* Build configuration list for PBXNativeTarget "Broadcaster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D92BE0529B9C3F400BB3315 /* Debug */,
+				4D92BE0629B9C3F400BB3315 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
