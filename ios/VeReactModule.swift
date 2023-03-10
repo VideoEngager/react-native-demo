@@ -57,19 +57,19 @@ class VeReactModule: RCTEventEmitter {
       return
     }
 
-    let customFields = ["firstName": settings.customFields.firstName,
-                        "lastName": settings.customFields.lastName,
-                        "email": settings.customFields.email,
-                        "addressStreet": settings.customFields.addressStreet,
-                        "addressCity": settings.customFields.addressCity,
-                        "addressPostalCode": settings.customFields.addressPostalCode,
-                        "addressState": settings.customFields.addressState,
-                        "phoneNumber": settings.customFields.phoneNumber,
-                        "phoneType": settings.customFields.phoneType,
-                        "customerId": settings.customFields.customerId,
-                        "customField1": settings.customFields.customField1,
-                        "customField2": settings.customFields.customField2,
-                        "customField3": settings.customFields.customField3 ] as [String : Any]
+    let customFields = ["firstName": settings.customFields?.firstName ?? "",
+                        "lastName": settings.customFields?.lastName ?? "",
+                        "email": settings.customFields?.email ?? "",
+                        "addressStreet": settings.customFields?.addressStreet ?? "",
+                        "addressCity": settings.customFields?.addressCity ?? "",
+                        "addressPostalCode": settings.customFields?.addressPostalCode ?? "",
+                        "addressState": settings.customFields?.addressState ?? "",
+                        "phoneNumber": settings.customFields?.phoneNumber ?? "",
+                        "phoneType": settings.customFields?.phoneType ?? "",
+                        "customerId": settings.customFields?.customerId ?? "",
+                        "customField1": settings.customFields?.customField1 ?? "",
+                        "customField2": settings.customFields?.customField2 ?? "",
+                        "customField3": settings.customFields?.customField3 ?? "" ] as [String : Any]
     let memberInfo = ["displayName": settings.customerName,
                     "customFields": customFields] as [String : Any]
     
@@ -231,5 +231,5 @@ public struct VeInitSettings: Decodable {
   public var hideAvatar: Bool = false
   public var hideName: Bool = false
   
-  public var customFields: CustomFields
+  public var customFields: CustomFields?
 }
