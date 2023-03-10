@@ -37,8 +37,6 @@ class VeReactModule: RCTEventEmitter {
   
   @objc(ClickToVideo:)
   func ClickToVideo(settingsJSON: String) {
-
-    
     
     guard let jsonData = settingsJSON.data(using: .utf8) else {
       let e = ["description": "SmartVideo parameters are not setup correctly."]
@@ -117,6 +115,11 @@ class VeReactModule: RCTEventEmitter {
   
   @objc(CallWithShortUrl:)
   func CallWithShortUrl(url: String) {
+    let lang = "en_US"
+    SmartVideo.delegate = self
+    SmartVideo.chatDelegate = self
+    SmartVideo.setLogging(level: .verbose, types: [.all])
+    
     let engine = GenesysEngine(environment: .live, commType: .chat)
     SmartVideo.setup(engine: engine)
     SmartVideo.veVisitorVideoCall(link: url)
