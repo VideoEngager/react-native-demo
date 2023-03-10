@@ -73,6 +73,7 @@ const findByCode = async (veShortUrl, settings) => {
     ).then(response => response.json());
   } catch (ex) {
     console.log('ex: ' + ex);
+    return;
   }
 };
 
@@ -89,6 +90,11 @@ const processIncomingUrl = async (veShortUrl, settings) => {
   }
   const data = await findByCode(veShortUrl, settings);
 
+  if (data?.error) {
+    console.log('Error: ', data.error);
+    return;
+  }
+
   if (isValidUrl(data.url)) {
     const url = new URL(data.url);
     const dParam = url.searchParams.get('d');
@@ -102,7 +108,8 @@ const processIncomingUrl = async (veShortUrl, settings) => {
       JSON.stringify({...settings, customFields: customFields}),
     );
   } else if (data.url.startsWith('/static/popup.html')) {
-    VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
+    // VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
+    VeReactModule.CallWithShortUrl(veShortUrl);
   } else {
     console.log('Url not supported. exiting...');
   }

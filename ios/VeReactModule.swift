@@ -37,6 +37,8 @@ class VeReactModule: RCTEventEmitter {
   
   @objc(ClickToVideo:)
   func ClickToVideo(settingsJSON: String) {
+
+    
     
     guard let jsonData = settingsJSON.data(using: .utf8) else {
       let e = ["description": "SmartVideo parameters are not setup correctly."]
@@ -44,7 +46,6 @@ class VeReactModule: RCTEventEmitter {
       self.sendEvent(withName: "Ve_onError", body: json)
       return
     }
-    
     var settings: VeInitSettings
     
     do {
@@ -58,8 +59,19 @@ class VeReactModule: RCTEventEmitter {
       return
     }
 
-    let customFields = ["firstName": settings.customerName,
-                      "lastName": settings.customerName] as [String : Any]
+    let customFields = ["firstName": settings.customFields.firstName,
+                        "lastName": settings.customFields.lastName,
+                        "email": settings.customFields.email,
+                        "addressStreet": settings.customFields.addressStreet,
+                        "addressCity": settings.customFields.addressCity,
+                        "addressPostalCode": settings.customFields.addressPostalCode,
+                        "addressState": settings.customFields.addressState,
+                        "phoneNumber": settings.customFields.phoneNumber,
+                        "phoneType": settings.customFields.phoneType,
+                        "customerId": settings.customFields.customerId,
+                        "customField1": settings.customFields.customField1,
+                        "customField2": settings.customFields.customField2,
+                        "customField3": settings.customFields.customField3 ] as [String : Any]
     let memberInfo = ["displayName": settings.customerName,
                     "customFields": customFields] as [String : Any]
     
@@ -169,6 +181,22 @@ extension VeReactModule: SmartVideoChatDelegate {
   }
 }
 
+public struct CustomFields: Decodable {
+  public var firstName: String = ""
+  public var lastName: String = ""
+  public var email: String = ""
+  public var addressStreet: String = ""
+  public var addressCity: String = ""
+  public var addressPostalCode: String = ""
+  public var addressState: String = ""
+  public var phoneNumber: String = ""
+  public var phoneType: String = ""
+  public var customerId: String = ""
+  public var customField1: String = ""
+  public var customField2: String = ""
+  public var customField3: String = ""
+}
+
 public struct VeInitSettings: Decodable {
   public var customerName: String = ""
   public var organizationId: String = ""
@@ -191,4 +219,6 @@ public struct VeInitSettings: Decodable {
   public var callWithSpeakerPhone: Bool = false
   public var hideAvatar: Bool = false
   public var hideName: Bool = false
+  
+  public var customFields: CustomFields
 }

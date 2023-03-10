@@ -9,4 +9,6 @@ RCT_EXTERN_METHOD(supportedEvents)
 
 RCT_EXTERN_METHOD(ClickToVideo:(NSString *)CallerName)
 
+RCT_EXTERN_METHOD(CallWithShortUrl:(NSString *)url)
+
 @end

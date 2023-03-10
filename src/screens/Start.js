@@ -1,6 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableWithoutFeedback,
+  Dimensions,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../components/Header';
 
@@ -15,20 +21,19 @@ export const StartScreen = () => {
     <SafeAreaView style={styles.container}>
       <Header title={'Choose Option'} />
       <View style={styles.wrapper}>
-        <TouchableOpacity
-          style={styles.btnOption}
-          onPress={onPressGenesysCloud}
-          title="Genesys Cloud">
+        <TouchableWithoutFeedback onPress={onPressGenesysCloud}>
           <Image
             style={styles.image}
-            source={require('../images/genesys_cloud.png')}
-            resizeMode="contain"
+            source={require('../images/genesyscloud.png')}
+            resizeMode="center"
           />
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       </View>
     </SafeAreaView>
   );
 };
+
+const imageWidth = Dimensions.get('window').width - 22;
 
 const styles = StyleSheet.create({
   container: {
@@ -45,17 +50,12 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    justifyContent: 'center',
-    width: '40%',
-    aspectRatio: 16 / 9,
-  },
-
-  btnOption: {
-    borderWidth: 1,
-    borderRadius: 10,
-    width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
+    height: 80,
+    width: imageWidth,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#000000',
   },
 });
