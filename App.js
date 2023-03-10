@@ -1,5 +1,11 @@
 import React from 'react';
-import {Alert, NativeModules, NativeEventEmitter, Linking} from 'react-native';
+import {
+  Alert,
+  NativeModules,
+  NativeEventEmitter,
+  Linking,
+  Platform,
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootNavigator} from './src/navigators/RootNavigator';
 import {URL} from 'react-native-url-polyfill';
@@ -108,8 +114,11 @@ const processIncomingUrl = async (veShortUrl, settings) => {
       JSON.stringify({...settings, customFields: customFields}),
     );
   } else if (data.url.startsWith('/static/popup.html')) {
-    // VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
-    VeReactModule.CallWithShortUrl(veShortUrl);
+    if (Platform.OS === 'ios') {
+      VeReactModule.CallWithShortUrl(veShortUrl);
+    } else {
+      VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
+    }
   } else {
     console.log('Url not supported. exiting...');
   }
