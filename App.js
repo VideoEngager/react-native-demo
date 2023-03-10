@@ -1,5 +1,11 @@
 import React from 'react';
-import {Alert, NativeModules, NativeEventEmitter, Linking} from 'react-native';
+import {
+  Alert,
+  NativeModules,
+  NativeEventEmitter,
+  Linking,
+  Platform,
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {RootNavigator} from './src/navigators/RootNavigator';
 import {URL} from 'react-native-url-polyfill';
@@ -73,6 +79,7 @@ const findByCode = async (veShortUrl, settings) => {
     ).then(response => response.json());
   } catch (ex) {
     console.log('ex: ' + ex);
+    return;
   }
 };
 
@@ -89,6 +96,11 @@ const processIncomingUrl = async (veShortUrl, settings) => {
   }
   const data = await findByCode(veShortUrl, settings);
 
+  if (data?.error) {
+    console.log('Error: ', data.error);
+    return;
+  }
+
   if (isValidUrl(data.url)) {
     const url = new URL(data.url);
     const dParam = url.searchParams.get('d');
@@ -102,7 +114,11 @@ const processIncomingUrl = async (veShortUrl, settings) => {
       JSON.stringify({...settings, customFields: customFields}),
     );
   } else if (data.url.startsWith('/static/popup.html')) {
-    VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
+    if (Platform.OS === 'ios') {
+      VeReactModule.CallWithShortUrl(veShortUrl);
+    } else {
+      VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
+    }
   } else {
     console.log('Url not supported. exiting...');
   }

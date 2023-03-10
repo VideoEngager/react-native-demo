@@ -36,6 +36,16 @@
 				<string>staging.leadsecure.com</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>videome.leadsecure.com</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>videome.leadsecure.com</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
