@@ -86,6 +86,14 @@ class VeReactModule: RCTEventEmitter {
                                                queue: settings.queue,
                                                engineUrl: settings.videoengagerUrl)
 
+//    let configurations = GenesysConfigurations(environment: .staging,
+//                                           organizationID: "c4b553c3-ee42-4846-aeb1-f0da3d85058e",
+//                                           deploymentID: "973f8326-c601-40c6-82ce-b87e6dafef1c",
+//                                           tenantId: "0FphTk091nt7G1W7",
+//                                           environmentURL: "https://api.mypurecloud.com",
+//                                           queue: "Support",
+//                                           engineUrl: "videome.videoengager.com")
+    
     // let engine = GenesysEngine(environment: .live, isVideo: true, memberInfo: memberInfo)
     let engine = GenesysEngine(environment: .live, isVideo: true, configurations: configurations, settings: ges, memberInfo: memberInfo)
     let lang = "en_US"

@@ -10,7 +10,7 @@ import SmartVideoSDK
 
 class SampleHandler: RPBroadcastSampleHandler, SmartVideoShareScreenDelegate {
     
-    let shareScreen = SmartVideoShareScreen(appGroupName: "group.com.videoengager.smartvideodemoapp")
+    let shareScreen = SmartVideoShareScreen(appGroupName: "group.com.videoengager.smartvideodemoapp.react")
     
     override init() {
         super.init()
