@@ -84,43 +84,62 @@ const findByCode = async (veShortUrl, settings) => {
 };
 
 const processIncomingUrl = async (veShortUrl, settings) => {
-  if (
-    ![
-      'staging.leadsecure.com',
-      'dev.leadsecure.com',
-      'videome.leadsecure.com',
-    ].includes(new URL(veShortUrl).host)
-  ) {
-    console.log('Url not supported. exiting...');
-    return;
-  }
-  const data = await findByCode(veShortUrl, settings);
-
-  if (data?.error) {
-    console.log('Error: ', data.error);
-    return;
-  }
-
-  if (isValidUrl(data.url)) {
-    const url = new URL(data.url);
-    const dParam = url.searchParams.get('d');
-    const base64Decoded = Base64.atob(dParam);
-    const fields = JSON.parse(base64Decoded).ud || [];
-    let customFields = {};
-    fields.map(field => {
-      customFields[field.name] = field.value;
-    });
-    VeReactModule.ClickToVideo(
-      JSON.stringify({...settings, customFields: customFields}),
-    );
-  } else if (data.url.startsWith('/static/popup.html')) {
-    if (Platform.OS === 'ios') {
-      VeReactModule.CallWithShortUrl(veShortUrl);
-    } else {
-      VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
+  try {
+    if (
+      ![
+        'staging.leadsecure.com',
+        'dev.leadsecure.com',
+        'videome.leadsecure.com',
+      ].includes(new URL(veShortUrl).host)
+    ) {
+      console.log('Url not supported. exiting...');
+      return;
     }
-  } else {
-    console.log('Url not supported. exiting...');
+    const data = await findByCode(veShortUrl, settings);
+
+    if (data?.error) {
+      console.log('Error: ', data.error);
+      return;
+    }
+
+    if (isValidUrl(data.url)) {
+      const url = new URL(data.url);
+      const dParam = url.searchParams.get('d');
+      const base64Decoded = Base64.atob(dParam);
+      const fields = JSON.parse(base64Decoded).ud || [];
+      let customFields = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        addressStreet: '',
+        addressCity: '',
+        addressPostalCode: '',
+        addressState: '',
+        phoneNumber: '',
+        phoneType: '',
+        customerId: '',
+        customField1: '',
+        customField2: '',
+        customField3: '',
+      };
+      fields.map(field => {
+        customFields[field.name] = field.value;
+      });
+      VeReactModule.ClickToVideo(
+        JSON.stringify({...settings, customFields: customFields}),
+      );
+    } else if (data.url.startsWith('/static/popup.html')) {
+      if (Platform.OS === 'ios') {
+        VeReactModule.CallWithShortUrl(veShortUrl);
+      } else {
+        VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
+      }
+    } else {
+      console.log('Url not supported. exiting...');
+    }
+  } catch (ex) {
+    console.log('processIncomingUrl ex: ' + ex);
+    return;
   }
 };
 

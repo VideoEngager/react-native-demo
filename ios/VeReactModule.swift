@@ -120,7 +120,7 @@ class VeReactModule: RCTEventEmitter {
     SmartVideo.chatDelegate = self
     SmartVideo.setLogging(level: .verbose, types: [.all])
     
-    let engine = GenesysEngine(environment: .live, commType: .chat)
+    let engine = GenesysEngine(environment: .staging, commType: .chat)
     SmartVideo.setup(engine: engine)
     SmartVideo.veVisitorVideoCall(link: url)
   }

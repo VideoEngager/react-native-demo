@@ -25,7 +25,7 @@ export const StartScreen = () => {
           <Image
             style={styles.image}
             source={require('../images/genesyscloud.png')}
-            resizeMode="center"
+            resizeMode="contain"
           />
         </TouchableWithoutFeedback>
       </View>
@@ -33,7 +33,7 @@ export const StartScreen = () => {
   );
 };
 
-const imageWidth = Dimensions.get('window').width - 22;
+const imageWidth = Dimensions.get('window').width / 2;
 
 const styles = StyleSheet.create({
   container: {
@@ -46,16 +46,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 22,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#000000',
+    marginHorizontal: 22,
   },
 
   image: {
     display: 'flex',
     justifyContent: 'center',
-    height: 80,
+    height: 60,
     width: imageWidth,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#000000',
   },
 });
