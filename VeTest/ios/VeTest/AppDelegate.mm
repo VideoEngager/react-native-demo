@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import <AVFoundation/AVFoundation.h>
 
 @implementation AppDelegate
 
@@ -11,6 +12,13 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
 
+  [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+
+  }];
+  [AVCaptureDevice requestAccessForMediaType: AVMediaTypeVideo completionHandler:^(BOOL granted) {
+
+  }];
+  
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

@@ -413,7 +413,10 @@ PODS:
     - React-jsi (= 0.71.4)
     - React-logger (= 0.71.4)
     - React-perflogger (= 0.71.4)
+  - SmartVideo (1.14.4):
+    - WebRTC-lib (= 104.0.0)
   - SocketRocket (0.6.0)
+  - WebRTC-lib (104.0.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -477,6 +480,7 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - SmartVideo
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -494,7 +498,9 @@ SPEC REPOS:
     - fmt
     - libevent
     - OpenSSL-Universal
+    - SmartVideo
     - SocketRocket
+    - WebRTC-lib
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -614,10 +620,12 @@ SPEC CHECKSUMS:
   React-RCTVibration: ad17efcfb2fa8f6bfd8ac0cf48d96668b8b28e0b
   React-runtimeexecutor: 8fa50b38df6b992c76537993a2b0553d3b088004
   ReactCommon: b49a4b00ca6d181ff74b17c12b2d59ac4add0bde
+  SmartVideo: 5833b62fede29e7b6ee4580119e5a1c52e4c5379
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  WebRTC-lib: 6c387d63a8d649e8171f548a67b740127cc299b3
   Yoga: 79dd7410de6f8ad73a77c868d3d368843f0c93e0
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 578eaa794c5fda79be31d9f4d513fc5e7b6d02c2
+PODFILE CHECKSUM: 3a00848f597b10e55d4941c838544920db7de01d
 
 COCOAPODS: 1.12.0
