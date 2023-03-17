@@ -166,7 +166,7 @@ dependencies {
         implementation jscFlavor
     }
     
-    implementation 'com.videoengager:smartvideo-sdk:1.15.1'
+    implementation 'com.videoengager:smartvideo-sdk:1.16.1'
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
