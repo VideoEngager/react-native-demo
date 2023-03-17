@@ -1,12 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  Dimensions,
-} from 'react-native';
+import {StyleSheet, View, Image, TouchableWithoutFeedback} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../components/Header';
 
@@ -24,16 +18,14 @@ export const StartScreen = () => {
         <TouchableWithoutFeedback onPress={onPressGenesysCloud}>
           <Image
             style={styles.image}
-            source={require('../images/genesyscloud.png')}
-            resizeMode="contain"
+            source={require('../images/genesys_cloud.png')}
+            resizeMode="center"
           />
         </TouchableWithoutFeedback>
       </View>
     </SafeAreaView>
   );
 };
-
-const imageWidth = Dimensions.get('window').width / 2;
 
 const styles = StyleSheet.create({
   container: {
@@ -50,12 +42,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: '#000000',
     marginHorizontal: 22,
+    height: 60,
   },
 
   image: {
     display: 'flex',
     justifyContent: 'center',
-    height: 60,
-    width: imageWidth,
+    height: 50,
+    width: 292,
   },
 });
