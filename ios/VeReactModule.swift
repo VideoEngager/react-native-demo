@@ -134,6 +134,11 @@ class VeReactModule: RCTEventEmitter {
   public func ClearRestricted(data: String){
     SmartVideo.allowShareScreen()
   }
+
+  @objc(CloseInteraction:)
+  public func CloseInteraction(data: String){
+    SmartVideo.disconnect()
+  }
   
   open override func supportedEvents() -> [String]! {
     return ["Ve_onError", "Ve_onChatMessage", "Ve_onCallStarted", "Ve_onCallFinished", "Ve_onCallHold"]

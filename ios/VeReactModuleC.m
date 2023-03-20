@@ -15,4 +15,6 @@ RCT_EXTERN_METHOD(SetRestricted:(NSString *)data)
 
 RCT_EXTERN_METHOD(ClearRestricted:(NSString *)data)
 
+RCT_EXTERN_METHOD(CloseInteraction:(NSString *)data)
+
 @end

@@ -15,6 +15,16 @@ export const GenesysCloudDemo = () => {
   const {settings} = useSettings();
   const {interactionInProgress} = useInteraction();
 
+  const onPressGenesysCloud = () => {
+    if (interactionInProgress) {
+      VeReactModule.CloseInteraction(null);
+    } else {
+      VeReactModule.ClickToVideo(
+        JSON.stringify({...settings, customFields: null}),
+      );
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Header
@@ -24,25 +34,9 @@ export const GenesysCloudDemo = () => {
         onPressRight={() => navigation.navigate('Settings')}
       />
       <View style={styles.wrapper}>
-        {/* <TouchableOpacity style={styles.button} onPress={null}>
-          <Label>Start Audio</Label>
-        </TouchableOpacity> */}
-        <TouchableOpacity
-          disabled={interactionInProgress}
-          style={styles.button}
-          onPress={() =>
-            VeReactModule.ClickToVideo(
-              JSON.stringify({...settings, customFields: null}),
-            )
-          }>
-          <Label>{'Start Video'}</Label>
+        <TouchableOpacity style={styles.button} onPress={onPressGenesysCloud}>
+          <Label>{interactionInProgress ? 'End Call' : 'Start Video'}</Label>
         </TouchableOpacity>
-        {/* <TouchableOpacity style={styles.button} onPress={() => {}}>
-          <Label>Start Chat</Label>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => {}}>
-          <Label>Request Schedule Meeting</Label>
-        </TouchableOpacity> */}
       </View>
     </SafeAreaView>
   );

@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VeReactModule extends ReactContextBaseJavaModule {
+    VideoEngager ve = null;
+
     @NonNull
     @Override
     public String getName() {
@@ -68,9 +70,10 @@ public class VeReactModule extends ReactContextBaseJavaModule {
                 veInitSettings.customerLabel,
                 Integer.parseInt(veInitSettings.agentWaitingTimeout)
         );
-        VideoEngager ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.genesys );
-        ve.Connect(VideoEngager.CallType.video);
-        ve.setOnEventListener(listener);
+        this.ve = null;
+        this.ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.genesys );
+        this.ve.Connect(VideoEngager.CallType.video);
+        this.ve.setOnEventListener(listener);
     }
 
     @ReactMethod
@@ -92,10 +95,11 @@ public class VeReactModule extends ReactContextBaseJavaModule {
                 null,true,null,null,
                 null,false,true,30,null,120
         );
-        VideoEngager ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.generic );
-        ve.Connect(VideoEngager.CallType.video);
-        ve.VeVisitorVideoCall(veShortUrl);
-        ve.setOnEventListener(listener);
+        this.ve = null;
+        this.ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.generic );
+        this.ve.Connect(VideoEngager.CallType.video);
+        this.ve.VeVisitorVideoCall(veShortUrl);
+        this.ve.setOnEventListener(listener);
     }
 
     @ReactMethod
@@ -106,6 +110,12 @@ public class VeReactModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void ClearRestricted(String data){
         VideoEngager.Companion.VeForceResumeScreenShare(getCurrentActivity());
+    }
+
+    @ReactMethod
+    public void CloseInteraction(String data){
+        this.ve.Disconnect();
+        this.ve = null;
     }
 
     private VideoEngager.EventListener listener = new VideoEngager.EventListener() {
