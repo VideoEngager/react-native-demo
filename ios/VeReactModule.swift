@@ -96,15 +96,6 @@ class VeReactModule: RCTEventEmitter {
                                                queue: settings.queue,
                                                engineUrl: settings.videoengagerUrl)
 
-//    let configurations = GenesysConfigurations(environment: .staging,
-//                                           organizationID: "c4b553c3-ee42-4846-aeb1-f0da3d85058e",
-//                                           deploymentID: "973f8326-c601-40c6-82ce-b87e6dafef1c",
-//                                           tenantId: "0FphTk091nt7G1W7",
-//                                           environmentURL: "https://api.mypurecloud.com",
-//                                           queue: "Support",
-//                                           engineUrl: "videome.videoengager.com")
-    
-    // let engine = GenesysEngine(environment: .live, isVideo: true, memberInfo: memberInfo)
     let engine = GenesysEngine(environment: .live, isVideo: true, configurations: configurations, settings: ges, memberInfo: memberInfo)
     let lang = "en_US"
     SmartVideo.delegate = self
@@ -113,14 +104,41 @@ class VeReactModule: RCTEventEmitter {
     SmartVideo.connect(engine: engine, isVideo: true, lang: lang)
   }
   
-  @objc(CallWithShortUrl:)
-  func CallWithShortUrl(url: String) {
-    let lang = "en_US"
+  @objc(CallWithShortUrl::)
+  func CallWithShortUrl(settingsJSON: String, url: String) {
+
+    guard let jsonData = settingsJSON.data(using: .utf8) else {
+      let e = ["description": "SmartVideo parameters are not setup correctly."]
+      let json = try? JSONEncoder().encode(e)
+      self.sendEvent(withName: "Ve_onError", body: json)
+      return
+    }
+    var settings: VeInitSettings
+    
+    do {
+      settings = try JSONDecoder().decode(VeInitSettings.self, from: jsonData)
+    }
+    catch {
+      print(error)
+      let e = ["description": error.localizedDescription.description]
+      let json = try? JSONEncoder().encode(e)
+      self.sendEvent(withName: "Ve_onError", body: json)
+      return
+    }
+
+    let configurations = GenesysConfigurations(environment: .staging,
+                                               organizationID: settings.organizationId,
+                                               deploymentID: settings.deploymentId,
+                                               tenantId: settings.tenantId,
+                                               environmentURL: settings.environment,
+                                               queue: settings.queue,
+                                               engineUrl: settings.videoengagerUrl)
+
     SmartVideo.delegate = self
     SmartVideo.chatDelegate = self
     SmartVideo.setLogging(level: .verbose, types: [.all])
     
-    let engine = GenesysEngine(environment: .staging, commType: .chat)
+    let engine = GenesysEngine(environment: .staging, commType: .chat, configurations: configurations)
     SmartVideo.setup(engine: engine)
     SmartVideo.veVisitorVideoCall(link: url)
   }

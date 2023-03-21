@@ -129,11 +129,7 @@ const processIncomingUrl = async (veShortUrl, settings) => {
         JSON.stringify({...settings, customFields: customFields}),
       );
     } else if (data.url.startsWith('/static/popup.html')) {
-      if (Platform.OS === 'ios') {
-        VeReactModule.CallWithShortUrl(veShortUrl);
-      } else {
-        VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
-      }
+      VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
     } else {
       console.log('Url not supported. exiting...');
     }
