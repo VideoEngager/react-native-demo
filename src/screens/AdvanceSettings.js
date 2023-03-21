@@ -31,7 +31,7 @@ export const AdvanceSettings = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Header
-        title={'Advance Settings'}
+        title={'Advanced Settings'}
         onPressLeft={navigation.goBack}
         rightIcon={<ResetIcon />}
         onPressRight={() => resetSettings()}
