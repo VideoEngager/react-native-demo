@@ -433,7 +433,6 @@ When you want to end an ongoing call you can use the following method:
 You can read how to implement android DeepLinks with ReactNative from this guide : https://reactnative.dev/docs/linking
 
 You can update associated domains in your app as follows for an example:
-
 ```
 <dict>
 	<key>com.apple.developer.associated-domains</key>
