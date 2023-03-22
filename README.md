@@ -16,28 +16,17 @@ Following ReactNative logic these are steps for implementing VideoEngager SmartV
 
 1. Open `android` folder(project) with AndroidStudio IDE.
 
-2. Edit `build.gradle` file and put jcenter() repo for allProjects as shown:
-```gradle
-allprojects {
-    repositories {
-        ...
-        jcenter()
-        ...
-        }
-}
-```
-
-3. Edit `app/build.gradle` and add VideoEngager SDK dependencies as shown (please use latest version) :
+2. Edit `app/build.gradle` and add VideoEngager SDK dependencies as shown (please use latest version) :
 ```gradle
 dependencies {
     ....
-    implementation 'com.videoengager:smartvideo-sdk:1.15.1'
+    implementation 'com.videoengager:smartvideo-sdk:1.16.1'
     ....
     }
 ```
-4. Create or copy / paste from current project into your android project src root, files : `VePackage.java` and `VeReactModule.java` located in `app/src/main/java.com.vetest/` folder.
+3. Create or copy / paste from current project into your android project src root, files : `VePackage.java`, `VeReactModule.java` and `VeInitSettings` located in `app/src/main/java/com/vetest/` folder.
 
-5. Edit you `MainApplication.java` file and add `VePackage` class into `getPackages()` method as shown :
+4. Edit you `MainApplication.java` file and add `VePackage` class into `getPackages()` method as shown :
 ```java
  private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -63,13 +52,15 @@ dependencies {
       };
 ```
 
-6. Test Build android project from AndroidStudio IDE.
+5. Test Build android project from AndroidStudio IDE. (NOTE: You will need Java version 11)
 
-7. Setup parameters
-If you need to pass more params you can edit module to handle your preferences.
+6. Setup parameters
+This demo app includes environment parameters and advanced settings in `Settings` and `AdvanceSettings` files located in `src/screen/` folder. The example also passes these configuration to the respective SDK. If you need to pass more params you can directly edit module to handle your preferences.
 
 If you need to change initial settings for VideoEngager SmartVideo SDK you can do this is android project like shown in `ClickToVideo` method in `VeReactModule`:
 ```java
+    VideoEngager ve = null;
+
     @ReactMethod
     public void ClickToVideo(String CallerName) {
         Toast.makeText(this.getReactApplicationContext(),"Hello "+CallerName,Toast.LENGTH_SHORT).show();
@@ -82,16 +73,27 @@ If you need to change initial settings for VideoEngager SmartVideo SDK you can d
                 "https://api.mypurecloud.com",
                 "MobileDev",
                 "mobiledev",
-                CallerName,
-                CallerName,
+                veInitSettings.customerName,
+                veInitSettings.customerName,
                 "",
                 "test@test.com","",
-                VideoEngager.Language.ENGLISH,null,null,null,null,
-                null,true,null,null,
-                null,false,true,30,null,120
+                VideoEngager.Language.ENGLISH,null,null,null,
+                veInitSettings.customFields,
+                veInitSettings.avatarImageUrl,
+                veInitSettings.allowVisitorSwitchAudioToVideo,
+                veInitSettings.informationLabelText,
+                veInitSettings.backgroundImageURL,
+                null,
+                veInitSettings.callWithPictureInPicture,
+                veInitSettings.callWithSpeakerPhone,
+                Integer.parseInt(veInitSettings.toolbarHideTimeout),
+                veInitSettings.customerLabel,
+                Integer.parseInt(veInitSettings.agentWaitingTimeout)
         );
-        VideoEngager ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.genesys );
-        ve.Connect(VideoEngager.CallType.video);
+        this.ve = null;
+        this.ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.genesys );
+        this.ve.Connect(VideoEngager.CallType.video);
+
         ve.setOnEventListener(new VideoEngager.EventListener() {
             @Override
             public boolean onError(@NonNull Error error) {
@@ -104,6 +106,30 @@ If you need to change initial settings for VideoEngager SmartVideo SDK you can d
                  sendEvent("Ve_onChatMessage", message);
             }
         });
+    }
+```
+
+7. If you want to pause screen sharing in certain situations you can use the following methods:
+
+```java
+    @ReactMethod
+    public void SetRestricted(String data){
+        VideoEngager.Companion.VeForcePauseScreenShare(getCurrentActivity());
+    }
+
+    @ReactMethod
+    public void ClearRestricted(String data){
+        VideoEngager.Companion.VeForceResumeScreenShare(getCurrentActivity());
+    }
+```
+
+8. When you want to end an ongoing call you can use the following method:
+
+```java
+    @ReactMethod
+    public void CloseInteraction(String data){
+        this.ve.Disconnect();
+        this.ve = null;
     }
 ```
 
@@ -132,7 +158,7 @@ Example steps for SmartVideo shortUrl Call :
 ```java
     @ReactMethod
     public void CallWithShortUrl(String veShortUrl) {
-        String CallerName = "ShortUrl Visitor";
+        VeInitSettings veInitSettings = new Gson().fromJson(initSettingsJson,VeInitSettings.class);
         Settings settings = new Settings(
                 "c4b553c3-ee42-4846-aeb1-f0da3d85058e",
                 "973f8326-c601-40c6-82ce-b87e6dafef1c",
@@ -141,8 +167,8 @@ Example steps for SmartVideo shortUrl Call :
                 "https://api.mypurecloud.com",
                 "Support",
                 "mobiledev",
-                CallerName,
-                CallerName,
+                veInitSettings.customerName,
+                veInitSettings.customerName,
                 "",
                 "test@test.com","",
                 VideoEngager.Language.ENGLISH,null,null,null,null,
@@ -150,7 +176,9 @@ Example steps for SmartVideo shortUrl Call :
                 null,false,true,30,null,120
         );
         VideoEngager ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.generic );
-        ve.Connect(VideoEngager.CallType.video);
+        this.ve = null;
+        this.ve = new VideoEngager(getCurrentActivity(),settings, VideoEngager.Engine.generic );
+        this.ve.Connect(VideoEngager.CallType.video);
         ve.VeVisitorVideoCall(veShortUrl);
         ve.setOnEventListener(new VideoEngager.EventListener() {
             @Override
@@ -162,7 +190,7 @@ Example steps for SmartVideo shortUrl Call :
     }
 ```
 
-3. In `App.js` add following logic :
+3. In `App.js`, there is more code to validate urls but the following logic should help you to get started:
 
 ```javascript
   import {
@@ -218,7 +246,6 @@ adb shell pm get-app-links <YOUR APP PACKAGE>
  If `Domain verification state:` results for `videome.leadsecure.com` and `videome.leadsecure.com` are `verified` you can now open VideoEngager ShortUrlCall links with your App.
 
 
-
 ## iOS implementation
 You can read how to use iOS native code with ReactNative app from this guide : https://reactnative.dev/docs/native-modules-ios
 
@@ -237,7 +264,7 @@ Could be place below `use_react_native` block.
   pod install
 ```
 
-4. Open project with XCode and import following files: `VeReactModuleC.h`, `VeReactModuleC.m`, `VeReactModuleC.swift`
+4. Open project with XCode and import following files: `VeReactModuleC.h`, `VeReactModuleC.m`, `VeReactModuleC.swift` located in `ios/` folder.
 
 5. To work with the SmartVideo SDK you must add Camera permissions and Microphone permissions. You can do it manually or from react package.
   5.1 You can add a package like `react-native-permissions` and follow package setup.
@@ -264,14 +291,45 @@ Could be place below `use_react_native` block.
 
 7. Setup parameters
 You can setup initial parameters on two ways.
-  7.1 Add `SmartVideo-Info.plist` to your project and setup values there
+  7.1 Add `SmartVideo-Info.plist` to your project and setup values there which is located in `ios` folder. 
   7.2 Add parameters directly into the `VeReactModuleC.swift` like this:
   ```swift
   @objc(ClickToVideo:)
-  func ClickToVideo(CallerName: String) {
+  func ClickToVideo(settingsJSON: String) {
 
-    let customFields = ["firstName": CallerName,
-                        "lastName": CallerName] as [String : Any]
+    guard let jsonData = settingsJSON.data(using: .utf8) else {
+      let e = ["description": "SmartVideo parameters are not setup correctly."]
+      let json = try? JSONEncoder().encode(e)
+      self.sendEvent(withName: "Ve_onError", body: json)
+      return
+    }
+    var settings: VeInitSettings
+    
+    do {
+      settings = try JSONDecoder().decode(VeInitSettings.self, from: jsonData)
+    }
+    catch {
+      print(error)
+      let e = ["description": error.localizedDescription.description]
+      let json = try? JSONEncoder().encode(e)
+      self.sendEvent(withName: "Ve_onError", body: json)
+      return
+    }
+
+    let customFields = ["firstName": settings.customFields?.firstName ?? "",
+                        "lastName": settings.customFields?.lastName ?? "",
+                        "email": settings.customFields?.email ?? "",
+                        "addressStreet": settings.customFields?.addressStreet ?? "",
+                        "addressCity": settings.customFields?.addressCity ?? "",
+                        "addressPostalCode": settings.customFields?.addressPostalCode ?? "",
+                        "addressState": settings.customFields?.addressState ?? "",
+                        "phoneNumber": settings.customFields?.phoneNumber ?? "",
+                        "phoneType": settings.customFields?.phoneType ?? "",
+                        "customerId": settings.customFields?.customerId ?? "",
+                        "customField1": settings.customFields?.customField1 ?? "",
+                        "customField2": settings.customFields?.customField2 ?? "",
+                        "customField3": settings.customFields?.customField3 ?? "" ] as [String : Any]
+
     let memberInfo = ["displayName": CallerName,
                       "customFields": customFields] as [String : Any]
 
@@ -315,6 +373,7 @@ const { VeReactModule } = NativeModules;
     eventEmitter.addListener('Ve_onError', (event) => {
        console.log(event)
     });
+
     eventEmitter.addListener('Ve_onChatMessage', (event) => {
       console.log(event)
 
@@ -326,14 +385,65 @@ const { VeReactModule } = NativeModules;
         ]
       );
    });
-```
-In this example we are registering for 2 events ... if you need more events you must add implementation in android module `VeReactModule` and register for it with eventEmmiter.
 
-11. Simple Video Call can be started with `ClickToVideo(String CallerName)` method provided from `VeReactModule` and executed from `App.js` as shown :
+    // when a call is started
+    eventEmitter.addListener('Ve_onCallStarted', event => {
+      setIsInInteraction(true);
+    });
+
+    // when a call is finished
+    eventEmitter.addListener('Ve_onCallFinished', event => {
+      setIsInInteraction(false);
+    });
+
+```
+In this example we are registering for few events ... if you need more events you must add implementation in android module `VeReactModule` and register for it with eventEmmiter.
+
+11. Simple Video Call can be started with `ClickToVideo` method provided from `VeReactModule` and executed from `App.js` as shown :
 ```javascript
-<Section title="ClickToVideo" >
-    <Button title='  ..:: ClickMe ::..  ' onPress={() => VeReactModule.ClickToVideo(this.userName)}/>
-</Section>
+VeReactModule.ClickToVideo(JSON.stringify({...settings, customFields: customFields}));
+```
+Note: You can pass environment settings and advance settings altogether to the `ClickToVideo` method.
+
+If you want to pause screen sharing in certain situations you can use the following methods:
+
+```java
+    @ReactMethod
+    public void SetRestricted(String data){
+        VideoEngager.Companion.VeForcePauseScreenShare(getCurrentActivity());
+    }
+
+    @ReactMethod
+    public void ClearRestricted(String data){
+        VideoEngager.Companion.VeForceResumeScreenShare(getCurrentActivity());
+    }
 ```
 
+When you want to end an ongoing call you can use the following method:
+
+```java
+    @ReactMethod
+    public void CloseInteraction(String data){
+        this.ve.Disconnect();
+        this.ve = null;
+    }
+    ```
+
+### iOS DeepLink implementation
+You can read how to implement android DeepLinks with ReactNative from this guide : https://reactnative.dev/docs/linking
+
+You can update associated domains in your app as follows for an example:
+
+```
+<dict>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:videome.leadsecure.com</string>
+	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.videoengager.smartvideodemoapp.react</string>
+	</array>
+</dict>
+```
 
