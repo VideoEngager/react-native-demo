@@ -17,4 +17,6 @@ RCT_EXTERN_METHOD(ClearRestricted:(NSString *)data)
 
 RCT_EXTERN_METHOD(CloseInteraction:(NSString *)data)
 
+RCT_EXTERN_METHOD(GetVeVersion: (RCTResponseSenderBlock *)successCallback)
+
 @end

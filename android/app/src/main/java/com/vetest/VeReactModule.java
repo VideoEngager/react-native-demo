@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -110,6 +111,11 @@ public class VeReactModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void ClearRestricted(String data){
         VideoEngager.Companion.VeForceResumeScreenShare(getCurrentActivity());
+    }
+
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    public String GetVeVersion() {
+        return VideoEngager.Companion.getSDK_VERSION();
     }
 
     @ReactMethod

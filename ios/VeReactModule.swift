@@ -158,6 +158,11 @@ class VeReactModule: RCTEventEmitter {
     SmartVideo.disconnect()
   }
   
+  @objc(GetVeVersion:)
+  func GetVeVersion(successCallback: RCTResponseSenderBlock) {
+      successCallback(["\(SmartVideo.version)"])
+  }
+  
   open override func supportedEvents() -> [String]! {
     return ["Ve_onError", "Ve_onChatMessage", "Ve_onCallStarted", "Ve_onCallFinished", "Ve_onCallHold"]
   }
