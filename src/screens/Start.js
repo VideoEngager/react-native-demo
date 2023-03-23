@@ -4,9 +4,9 @@ import {
   StyleSheet,
   View,
   Image,
-  TouchableWithoutFeedback,
   NativeModules,
   Platform,
+  Pressable,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../components/Header';
@@ -34,15 +34,15 @@ export const StartScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title={'Choose Option'} />
+      <Header />
       <View style={styles.wrapper}>
-        <TouchableWithoutFeedback onPress={onPressGenesysCloud}>
+        <Pressable onPress={onPressGenesysCloud}>
           <Image
             style={styles.image}
             source={require('../images/genesys_cloud.png')}
-            resizeMode="center"
+            resizeMode="contain"
           />
-        </TouchableWithoutFeedback>
+        </Pressable>
       </View>
       <Label style={styles.version}>{`SDK version: ${version}`}</Label>
     </SafeAreaView>
@@ -63,16 +63,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#ccc',
+    borderColor: '#5F9FBD',
     marginHorizontal: 22,
     height: 60,
+    marginBottom: 40,
   },
 
   image: {
     display: 'flex',
     justifyContent: 'center',
     height: 50,
-    width: 292,
+    width: 192,
   },
 
   version: {

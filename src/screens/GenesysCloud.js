@@ -28,14 +28,16 @@ export const GenesysCloudDemo = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Header
-        title={'GenesysCloud'}
+        title={'Genesys Cloud'}
         onPressLeft={navigation.goBack}
         rightIcon={<SettingsIcon size={24} />}
         onPressRight={() => navigation.navigate('Settings')}
       />
       <View style={styles.wrapper}>
         <TouchableOpacity style={styles.button} onPress={onPressGenesysCloud}>
-          <Label>{interactionInProgress ? 'End Call' : 'Start Video'}</Label>
+          <Label style={styles.buttonText}>
+            {interactionInProgress ? 'End Call' : 'Start Video'}
+          </Label>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -55,7 +57,6 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    borderWidth: 1,
     borderRadius: 10,
     width: '100%',
     display: 'flex',
@@ -63,5 +64,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 15,
     height: 44,
+    backgroundColor: '#5F9FBD',
+  },
+
+  buttonText: {
+    color: '#FFF',
   },
 });

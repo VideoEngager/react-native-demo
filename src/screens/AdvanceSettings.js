@@ -88,6 +88,7 @@ export const AdvanceSettings = () => {
         />
         <View style={styles.option}>
           <Switch
+            trackColor={{true: '#5F9FBD'}}
             value={settings.showAgentBusyDialog}
             onValueChange={text =>
               updateSettings({...settings, showAgentBusyDialog: text})
@@ -97,6 +98,7 @@ export const AdvanceSettings = () => {
         </View>
         <View style={styles.option}>
           <Switch
+            trackColor={{true: '#5F9FBD'}}
             value={settings.allowVisitorSwitchAudioToVideo}
             onValueChange={text =>
               updateSettings({
@@ -111,6 +113,7 @@ export const AdvanceSettings = () => {
         </View>
         <View style={styles.option}>
           <Switch
+            trackColor={{true: '#5F9FBD'}}
             value={settings.callWithPictureInPicture}
             onValueChange={text =>
               updateSettings({...settings, callWithPictureInPicture: text})
@@ -122,6 +125,7 @@ export const AdvanceSettings = () => {
         </View>
         <View style={styles.option}>
           <Switch
+            trackColor={{true: '#5F9FBD'}}
             value={settings.callWithSpeakerPhone}
             onValueChange={text =>
               updateSettings({...settings, callWithSpeakerPhone: text})
@@ -133,6 +137,7 @@ export const AdvanceSettings = () => {
         </View>
         <View style={styles.option}>
           <Switch
+            trackColor={{true: '#5F9FBD'}}
             value={settings.hideAvatar}
             onValueChange={text =>
               updateSettings({...settings, hideAvatar: text})
@@ -142,6 +147,7 @@ export const AdvanceSettings = () => {
         </View>
         <View style={styles.option}>
           <Switch
+            trackColor={{true: '#5F9FBD'}}
             value={settings.hideName}
             onValueChange={text =>
               updateSettings({...settings, hideName: text})
