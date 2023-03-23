@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 import SmartVideoSDK
 import React
+import MessageUI
 
 struct GenesysSettings: Decodable {
   let customerName: String
@@ -165,6 +166,11 @@ class VeReactModule: RCTEventEmitter {
   
   open override func supportedEvents() -> [String]! {
     return ["Ve_onError", "Ve_onChatMessage", "Ve_onCallStarted", "Ve_onCallFinished", "Ve_onCallHold"]
+  }
+
+  @objc(ReportProblem)
+  public func ReportProblem()  {
+    MailSender.SendHistory();
   }
 }
 
