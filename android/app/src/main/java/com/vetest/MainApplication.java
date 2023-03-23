@@ -2,6 +2,8 @@ package com.vetest;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
+
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -10,6 +12,15 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
 import com.vetest.newarchitecture.MainApplicationReactNativeHost;
+import com.videoengager.sdk.VideoEngager;
+
+import org.acra.ACRA;
+import org.acra.config.CoreConfigurationBuilder;
+import org.acra.config.DialogConfigurationBuilder;
+import org.acra.config.MailSenderConfiguration;
+import org.acra.config.MailSenderConfigurationBuilder;
+import org.acra.data.StringFormat;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -89,4 +100,30 @@ public class MainApplication extends Application implements ReactApplication {
       }
     }
   }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        VideoEngager.Companion.setSDK_DEBUG(true);
+        ACRA.init(this, new CoreConfigurationBuilder()
+                .withBuildConfigClass(BuildConfig.class)
+                .withReportFormat(StringFormat.KEY_VALUE_LIST)
+                .withLogcatArguments("-t", "10000", "-v", "long")
+                .withPluginConfigurations(
+                    new MailSenderConfigurationBuilder()
+                            .withMailTo("engineering@videoengager.com")
+                            .withReportAsFile(true)
+                            .withReportFileName("ReactNativeCrashReport.txt")
+                            .withSubject("React Native with Android SDK v"+ VideoEngager.Companion.getSDK_VERSION() +" demoApp crash report")
+                            .build(),
+                    new DialogConfigurationBuilder()
+                            .withTitle("Submit error report")
+                            .withText("Will open email client and compose e-mail with logs as attachment.")
+                            .withPositiveButtonText("Submit")
+                            .withNegativeButtonText("Cancel")
+                            .withResTheme(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1 ? android.R.style.Theme_DeviceDefault_Dialog_Alert : android.R.style.Theme_Dialog)
+                            .build()
+                )
+        );
+    }
 }

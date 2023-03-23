@@ -19,6 +19,7 @@ import com.videoengager.sdk.VideoEngager;
 import com.videoengager.sdk.model.Error;
 import com.videoengager.sdk.model.Settings;
 
+import org.acra.ACRA;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -146,6 +147,11 @@ public class VeReactModule extends ReactContextBaseJavaModule {
             sendEvent("Ve_onChatMessage", message);
         }
     };
+
+    @ReactMethod
+    public void ReportProblem() {
+        ACRA.getErrorReporter().handleException(null);
+    }
 
     @ReactMethod
     public void addListener(String eventName) {

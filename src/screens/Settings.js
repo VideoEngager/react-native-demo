@@ -1,12 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, SafeAreaView} from 'react-native';
+import {StyleSheet, TouchableOpacity,NativeModules, SafeAreaView} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Header from '../components/Header';
 import {Label} from '../components/Label';
 import {TextInput} from '../components/TextInput';
 import {useSettings} from '../contexts/Settings';
 import ResetIcon from '../icons/ResetIcon';
+
+const {VeReactModule} = NativeModules;
 
 export const Settings = () => {
   const navigation = useNavigation();
@@ -87,7 +89,10 @@ export const Settings = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, styles.buttonRed]}
-          onPress={() => console.log('Report a Problem Clicked!')}>
+          onPress={() => {
+            console.log('Report a Problem Clicked!')
+            VeReactModule.ReportProblem()
+          }}>
           <Label style={styles.text}>Report a Problem</Label>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
