@@ -74,7 +74,7 @@ export const Settings = () => {
           }
         />
         <TextInput
-          style={styles.btnText}
+          style={[styles.btnText, {marginBottom: 10}]}
           label={'Queue'}
           placeholder={'Queue'}
           value={settings.queue}
@@ -83,7 +83,12 @@ export const Settings = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('AdvanceSettings')}>
-          <Label style={styles.text}>Advance Settings</Label>
+          <Label style={styles.text}>Advanced Settings</Label>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, styles.buttonRed]}
+          onPress={() => console.log('Report a Problem Clicked!')}>
+          <Label style={styles.text}>Report a Problem</Label>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
     </SafeAreaView>
@@ -107,9 +112,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 15,
+    marginVertical: 5,
     height: 44,
     backgroundColor: '#5F9FBD',
+  },
+
+  buttonRed: {
+    backgroundColor: '#D2042D',
   },
 
   text: {
