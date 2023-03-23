@@ -1,11 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
+import {StyleSheet, TouchableOpacity, SafeAreaView} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Header from '../components/Header';
 import {Label} from '../components/Label';
 import {TextInput} from '../components/TextInput';
@@ -24,7 +20,7 @@ export const Settings = () => {
         onPressRight={() => resetSettings()}
       />
 
-      <ScrollView style={styles.wrapper}>
+      <KeyboardAwareScrollView style={styles.wrapper}>
         <TextInput
           style={styles.btnText}
           label={'Customer Name'}
@@ -89,7 +85,7 @@ export const Settings = () => {
           onPress={() => navigation.navigate('AdvanceSettings')}>
           <Label style={styles.text}>Advance Settings</Label>
         </TouchableOpacity>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   );
 };
@@ -106,8 +102,6 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: 'black',
-    borderWidth: 1,
     borderRadius: 10,
     width: '100%',
     display: 'flex',
@@ -115,6 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 15,
     height: 44,
+    backgroundColor: '#5F9FBD',
   },
 
   text: {
