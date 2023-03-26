@@ -40,7 +40,7 @@ const prodConfig = {
   environment: 'https://api.mypurecloud.com',
 };
 
-const initialState = {
+export const initialState = {
   settings: {
     ...stagingConfig,
     queue: 'Support',
