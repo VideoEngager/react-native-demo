@@ -26,12 +26,15 @@ ios/.xcode.env.local
 #
 build/
 release/
+debug/
 .idea
 .gradle
 local.properties
 *.iml
 *.hprof
 .cxx/
+tmp/
+android/app/src/main/assets/*
 
 # node.js
 #
@@ -63,3 +66,4 @@ buck-out/
 # Ruby / CocoaPods
 /ios/Pods/
 /vendor/bundle/
+/ios/assets/*

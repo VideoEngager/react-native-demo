@@ -80,6 +80,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
 
 project.ext.react = [
     enableHermes: true,  // clean and rebuild if changing
+    bundleInDebug: true,
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -251,7 +252,12 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation 'com.videoengager:smartvideo-sdk:1.15.1'
+    implementation 'com.videoengager:smartvideo-sdk:1.16.1'
+
+    //error reporting lib
+    def acraVersion = '5.9.7'
+    implementation "ch.acra:acra-mail:$acraVersion"
+    implementation "ch.acra:acra-dialog:$acraVersion"
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:0.70.2"  // From node_modules

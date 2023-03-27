@@ -1,173 +1,193 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import type {Node} from 'react';
-import {
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  useColorScheme,
-  View,
-  Alert,
-  ToastAndroid,
-  NativeModules,
-  NativeEventEmitter,
-  Linking,
-} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {RootNavigator} from './src/navigators/RootNavigator';
+import {Alert, Linking, NativeEventEmitter, NativeModules} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {initialState as initialSettingsState} from './src/contexts/Settings';
+import {URL} from 'react-native-url-polyfill';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const {VeReactModule} = NativeModules;
 
-//declare VideoEngager Module
-const { VeReactModule } = NativeModules;
+const eventEmitter = new NativeEventEmitter(NativeModules.VeReactModule);
 
-userName='React Native Tester';
+const App = () => {
+  const showError = (title, error) => {
+    Alert.alert(title, error, [
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+  };
 
-function veShortUrlCall(veShortUrl){
-  console.log("Short Url Call : "+veShortUrl)
-  VeReactModule.CallWithShortUrl(veShortUrl)
-}
+  const chars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+  const Base64 = {
+    btoa: (input = '') => {
+      let str = input;
+      let output = '';
 
+      for (
+        let block = 0, charCode, i = 0, map = chars;
+        str.charAt(i | 0) || ((map = '='), i % 1);
+        output += map.charAt(63 & (block >> (8 - (i % 1) * 8)))
+      ) {
+        charCode = str.charCodeAt((i += 3 / 4));
 
+        if (charCode > 0xff) {
+          throw new Error(
+            "'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.",
+          );
+        }
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+        block = (block << 8) | charCode;
+      }
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+      return output;
+    },
+
+    atob: (input = '') => {
+      let str = input.replace(/[=]+$/, '');
+      let output = '';
+
+      if (str.length % 4 == 1) {
+        throw new Error(
+          "'atob' failed: The string to be decoded is not correctly encoded.",
+        );
+      }
+      for (
+        let bc = 0, bs = 0, buffer, i = 0;
+        (buffer = str.charAt(i++));
+        ~buffer && ((bs = bc % 4 ? bs * 64 + buffer : buffer), bc++ % 4)
+          ? (output += String.fromCharCode(255 & (bs >> ((-2 * bc) & 6))))
+          : 0
+      ) {
+        buffer = chars.indexOf(buffer);
+      }
+
+      return output;
+    },
+  };
+
+  const isValidUrl = urlString => {
+    try {
+      return Boolean(new URL(urlString));
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const findByCode = async (veShortUrl, settings) => {
+    try {
+      const shortCode = veShortUrl.substring(veShortUrl.lastIndexOf('/') + 1);
+
+      return await fetch(
+        `https://${settings.videoengagerUrl}/api/shorturls/findByCode/${shortCode}`,
+      ).then(response => response.json());
+    } catch (ex) {
+      console.log('ex: ' + ex);
+      return;
+    }
+  };
+
+  const processIncomingUrl = async veShortUrl => {
+    try {
+      if (
+        ![
+          'staging.leadsecure.com',
+          'dev.leadsecure.com',
+          'videome.leadsecure.com',
+        ].includes(new URL(veShortUrl).host)
+      ) {
+        console.log('Url not supported. exiting...');
+        showError('Shorturl Error', 'Url not supported');
+        return;
+      }
+      const asyncData = await AsyncStorage.getItem('GENESYSCLOUD_SETTINGS');
+      const settings = !asyncData
+        ? initialSettingsState.settings
+        : JSON.parse(asyncData);
+
+      const data = await findByCode(veShortUrl, settings);
+
+      if (data?.error) {
+        console.log('Error: ', data.error);
+        showError('Shorturl Code Error', `Error: ${data.error}`);
+        return;
+      }
+
+      if (data.url.indexOf('/static/popup.html') > -1) {
+        VeReactModule.CallWithShortUrl(JSON.stringify(settings), veShortUrl);
+      } else if (isValidUrl(data.url)) {
+        const url = new URL(data.url);
+        const dParam = url.searchParams.get('d');
+        const base64Decoded = Base64.atob(dParam);
+        const fields = JSON.parse(base64Decoded).ud || [];
+        let customFields = {
+          firstName: '',
+          lastName: '',
+          email: '',
+          addressStreet: '',
+          addressCity: '',
+          addressPostalCode: '',
+          addressState: '',
+          phoneNumber: '',
+          phoneType: '',
+          customerId: '',
+          customField1: '',
+          customField2: '',
+          customField3: '',
+        };
+        fields.map(field => {
+          customFields[field.name] = field.value;
+        });
+        VeReactModule.ClickToVideo(
+          JSON.stringify({...settings, customFields: customFields}),
+        );
+      } else {
+        console.log('Url not supported. exiting...');
+      }
+    } catch (ex) {
+      console.log('processIncomingUrl ex: ' + ex);
+      showError('processIncomingUrl Error', ex);
+      return;
+    }
   };
 
   // if app starts from deep link, handle it here
-   Linking.getInitialURL().then(veShortUrl => {
-    console.log("Initial Url : "+veShortUrl)
-    if(veShortUrl!=null && veShortUrl.length>0) {
-      veShortUrlCall(veShortUrl)
+  Linking.getInitialURL().then(veShortUrl => {
+    console.log('Initial Url : ' + veShortUrl);
+    if (veShortUrl != null && veShortUrl.length > 0) {
+      processIncomingUrl(veShortUrl);
     }
-  })
+  });
   // If App is running register for deep links and handle event
-  Linking.addEventListener('url', (event)=>{
-    console.log("Event Url : "+event.url)
-    if(event.url!=null && event.url.length>0) {
-      veShortUrlCall(event.url)
-     }
-  })
-  
-    //declare event emmiter and add Videoengager events
-    const eventEmitter = new NativeEventEmitter(NativeModules.VeReactModule);
-    eventEmitter.addListener('Ve_onError', (event) => {
-       console.log(event)
-    });
-    eventEmitter.addListener('Ve_onChatMessage', (event) => {
-      console.log(event)
+  Linking.addEventListener('url', event => {
+    console.log('Event Url : ' + event.url);
+    if (event.url != null && event.url.length > 0) {
+      processIncomingUrl(event.url);
+    }
+  });
 
-      Alert.alert(
-        "Chat Message",
-        event,
-        [
-          { text: "OK", onPress: () => console.log("OK Pressed") }
-        ]
-      );
-   });
+  // declare event emmiter and add Videoengager events
+  eventEmitter.addListener('Ve_onError', event => {
+    console.log('Ve_onError', event);
+
+    Alert.alert('SDK Error', event, [
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+  });
+
+  eventEmitter.addListener('Ve_onChatMessage', event => {
+    console.log(event);
+
+    Alert.alert('Chat Message', event, [
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+  });
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Fill your Name:" >
-            <View>
-             <TextInput style = {styles.input} onChangeText={(text) => this.userName = text} defaultValue = {this.userName} />
-             </View>
-          </Section>
-          <Section title="ClickToVideo" >
-            <Button title='  ..:: ClickMe ::..  ' onPress={() => VeReactModule.ClickToVideo(this.userName)}/>
-          </Section>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <RootNavigator />
+    </NavigationContainer>
   );
 };
-
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    minWidth: 200,
-    color: Colors.black,
-    backgroundColor: `#dcdcdc`,
-    width: '100%',
-  },
-});
 
 export default App;
