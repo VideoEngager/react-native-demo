@@ -383,7 +383,7 @@ PODS:
     - React-RCTImage
   - RNSVG (13.8.0):
     - React-Core
-  - SmartVideo (1.14.5):
+  - SmartVideo (1.14.7):
     - WebRTC-lib (= 104.0.0)
   - SocketRocket (0.6.0)
   - WebRTC-lib (104.0.0)
@@ -455,7 +455,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
-  - SmartVideo (from `https://github.com/VideoEngager/SmartVideo-iOS-SDK`, branch `main`)
+  - SmartVideo (from `https://github.com/VideoEngager/SmartVideo-iOS-SDK`, branch `development`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -555,14 +555,14 @@ EXTERNAL SOURCES:
   RNSVG:
     :path: "../node_modules/react-native-svg"
   SmartVideo:
-    :branch: main
+    :branch: development
     :git: https://github.com/VideoEngager/SmartVideo-iOS-SDK
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 CHECKOUT OPTIONS:
   SmartVideo:
-    :commit: 38741a00f3910325a711bba9cd01ff9e3eb254de
+    :commit: 1365d4516006455cc94ec72738e896e72b65162c
     :git: https://github.com/VideoEngager/SmartVideo-iOS-SDK
 
 SPEC CHECKSUMS:
@@ -617,12 +617,12 @@ SPEC CHECKSUMS:
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
-  SmartVideo: 629d852d1959e9a8cd2c74bb131ddd328ee4b8e6
+  SmartVideo: 6a221e28af1b4f4e8898d16ff29b95de20d3f83a
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   WebRTC-lib: 6c387d63a8d649e8171f548a67b740127cc299b3
   Yoga: 043f8eb97345d0171f27fead4d1849cacf0472a5
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 4beeb2fe6d03702837b1effa06cc9153a1cb0641
+PODFILE CHECKSUM: e1637d1d3cc05e33256e99a87b7a893a518eac4d
 
 COCOAPODS: 1.12.0
