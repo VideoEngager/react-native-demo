@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {StyleSheet, View, NativeModules, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../components/Header';
@@ -7,6 +7,7 @@ import {Label} from '../components/Label';
 import {useInteraction} from '../contexts/Interaction';
 import {useSettings} from '../contexts/Settings';
 import SettingsIcon from '../icons/SettingsIcon';
+import {debounce} from 'lodash';
 
 const {VeReactModule} = NativeModules;
 
@@ -15,7 +16,7 @@ export const GenesysCloudDemo = () => {
   const {settings} = useSettings();
   const {interactionInProgress} = useInteraction();
 
-  const onPressGenesysCloud = () => {
+  const toggleInteraction = useCallback(() => {
     if (interactionInProgress) {
       VeReactModule.CloseInteraction(null);
     } else {
@@ -23,7 +24,9 @@ export const GenesysCloudDemo = () => {
         JSON.stringify({...settings, customFields: null}),
       );
     }
-  };
+  }, [interactionInProgress, settings]);
+
+  const onPressStartInteraction = debounce(toggleInteraction, 500, true);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -34,7 +37,9 @@ export const GenesysCloudDemo = () => {
         onPressRight={() => navigation.navigate('Settings')}
       />
       <View style={styles.wrapper}>
-        <TouchableOpacity style={styles.button} onPress={onPressGenesysCloud}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={onPressStartInteraction}>
           <Label style={styles.buttonText}>
             {interactionInProgress ? 'End Call' : 'Start Video'}
           </Label>
