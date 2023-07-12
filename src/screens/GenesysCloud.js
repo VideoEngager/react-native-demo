@@ -26,7 +26,10 @@ export const GenesysCloudDemo = () => {
     }
   }, [interactionInProgress, settings]);
 
-  const onPressStartInteraction = debounce(toggleInteraction, 500, true);
+  const onPressStartInteraction = debounce(toggleInteraction, 500, {
+    leading: true,
+    trailing: false,
+  });
 
   return (
     <SafeAreaView style={styles.container}>
