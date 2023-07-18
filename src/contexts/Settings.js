@@ -19,7 +19,6 @@ const devConfig = {
 };
 
 // staging
-// eslint-disable-next-line no-unused-vars
 const stagingConfig = {
   customerName: 'Mobile Demo Tester',
   organizationId: '639292ca-14a2-400b-8670-1f545d8aa860',

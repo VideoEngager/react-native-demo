@@ -165,7 +165,7 @@ class VeReactModule: RCTEventEmitter {
   }
   
   open override func supportedEvents() -> [String]! {
-    return ["Ve_onError", "Ve_onChatMessage", "Ve_onCallStarted", "Ve_onCallFinished", "Ve_onCallHold"]
+    return ["Ve_onError", "Ve_onChatMessage", "Ve_onCallStarted", "Ve_onCallFinished", "Ve_onCallHold", "Ve_interactionStarted", "Ve_interactionEstablished", "Ve_onCallWaiting", "Ve_onCallHanguped"]
   }
 
   @objc(ReportProblem)
@@ -193,12 +193,12 @@ extension VeReactModule: SmartVideoDelegate {
   
   func callStatusChanged(status: SmartVideoSDK.SmartVideoCallStatus) {
     switch status {
-    case .interactionStarted: break
-    case .interactionEstablished: break
-    case .callWaiting: break
+    case .interactionStarted: self.sendEvent(withName: "Ve_interactionStarted", body: "")
+    case .interactionEstablished: self.sendEvent(withName: "Ve_interactionEstablished", body: "")
+    case .callWaiting: self.sendEvent(withName: "Ve_onCallWaiting", body: "")
     case .callStarted: self.sendEvent(withName: "Ve_onCallStarted", body: "")
     case .callOnHold: self.sendEvent(withName: "Ve_onCallHold", body: "")
-    case .callHanguped: break
+    case .callHanguped: self.sendEvent(withName: "Ve_onCallHanguped", body: "")
     case .callFinished: self.sendEvent(withName: "Ve_onCallFinished", body: "")
     @unknown default: break
     }

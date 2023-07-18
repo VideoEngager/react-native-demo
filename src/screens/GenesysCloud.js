@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {StyleSheet, View, NativeModules, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from '../components/Header';
@@ -7,26 +7,34 @@ import {Label} from '../components/Label';
 import {useInteraction} from '../contexts/Interaction';
 import {useSettings} from '../contexts/Settings';
 import SettingsIcon from '../icons/SettingsIcon';
+import {debounce} from 'lodash';
+import {Spinner} from '../components/Spinner';
 
 const {VeReactModule} = NativeModules;
 
 export const GenesysCloudDemo = () => {
   const navigation = useNavigation();
   const {settings} = useSettings();
-  const {interactionInProgress} = useInteraction();
+  const {showLoader, showCallInProgress} = useInteraction();
 
-  const onPressGenesysCloud = () => {
-    if (interactionInProgress) {
+  const toggleInteraction = useCallback(() => {
+    if (showCallInProgress) {
       VeReactModule.CloseInteraction(null);
     } else {
       VeReactModule.ClickToVideo(
         JSON.stringify({...settings, customFields: null}),
       );
     }
-  };
+  }, [showCallInProgress, settings]);
+
+  const onPressStartInteraction = debounce(toggleInteraction, 500, {
+    leading: true,
+    trailing: false,
+  });
 
   return (
     <SafeAreaView style={styles.container}>
+      {showLoader && <Spinner />}
       <Header
         title={'Genesys Cloud'}
         onPressLeft={navigation.goBack}
@@ -34,9 +42,12 @@ export const GenesysCloudDemo = () => {
         onPressRight={() => navigation.navigate('Settings')}
       />
       <View style={styles.wrapper}>
-        <TouchableOpacity style={styles.button} onPress={onPressGenesysCloud}>
+        <TouchableOpacity
+          style={[styles.button, showLoader && styles.buttonDisabled]}
+          disabled={showLoader}
+          onPress={onPressStartInteraction}>
           <Label style={styles.buttonText}>
-            {interactionInProgress ? 'End Call' : 'Start Video'}
+            {showCallInProgress ? 'End Call' : 'Start Video'}
           </Label>
         </TouchableOpacity>
       </View>
@@ -65,6 +76,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     height: 44,
     backgroundColor: '#5F9FBD',
+  },
+
+  buttonDisabled: {
+    backgroundColor: '#CCC',
   },
 
   buttonText: {
