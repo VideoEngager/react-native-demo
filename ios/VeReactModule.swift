@@ -78,7 +78,7 @@ class VeReactModule: RCTEventEmitter {
                                                                   hideName: settings.hideName)
     let icvs = GenesysEngineSettings.InCallViewSettings(toolBarHideTimeout: Int(settings.toolbarHideTimeout) ?? 40)
     
-    let sss = GenesysEngineSettings.ShareScreenSettings(isOn: true, broadcasterBundleIdentifier: "group.com.videoengager.smartvideodemoapp.react", appGroupName: "group.com.videoengager.smartvideodemoapp.react")
+    let sss = GenesysEngineSettings.ShareScreenSettings(isOn: true, broadcasterBundleIdentifier: "com.videoengager.smartvideodemoapp.react.Broadcaster", appGroupName: "group.com.videoengager.smartvideodemoapp.react")
     
     let ges = GenesysEngineSettings(agentWaitingTimeout: Int(settings.agentWaitingTimeout),
                                     customerLabel: settings.customerLabel,
