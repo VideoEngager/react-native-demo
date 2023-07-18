@@ -8,23 +8,24 @@ import {useInteraction} from '../contexts/Interaction';
 import {useSettings} from '../contexts/Settings';
 import SettingsIcon from '../icons/SettingsIcon';
 import {debounce} from 'lodash';
+import {Spinner} from '../components/Spinner';
 
 const {VeReactModule} = NativeModules;
 
 export const GenesysCloudDemo = () => {
   const navigation = useNavigation();
   const {settings} = useSettings();
-  const {interactionInProgress} = useInteraction();
+  const {showLoader, showCallInProgress} = useInteraction();
 
   const toggleInteraction = useCallback(() => {
-    if (interactionInProgress) {
+    if (showCallInProgress) {
       VeReactModule.CloseInteraction(null);
     } else {
       VeReactModule.ClickToVideo(
         JSON.stringify({...settings, customFields: null}),
       );
     }
-  }, [interactionInProgress, settings]);
+  }, [showCallInProgress, settings]);
 
   const onPressStartInteraction = debounce(toggleInteraction, 500, {
     leading: true,
@@ -33,6 +34,7 @@ export const GenesysCloudDemo = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {showLoader && <Spinner />}
       <Header
         title={'Genesys Cloud'}
         onPressLeft={navigation.goBack}
@@ -41,10 +43,11 @@ export const GenesysCloudDemo = () => {
       />
       <View style={styles.wrapper}>
         <TouchableOpacity
-          style={styles.button}
+          style={[styles.button, showLoader && styles.buttonDisabled]}
+          disabled={showLoader}
           onPress={onPressStartInteraction}>
           <Label style={styles.buttonText}>
-            {interactionInProgress ? 'End Call' : 'Start Video'}
+            {showCallInProgress ? 'End Call' : 'Start Video'}
           </Label>
         </TouchableOpacity>
       </View>
@@ -73,6 +76,10 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     height: 44,
     backgroundColor: '#5F9FBD',
+  },
+
+  buttonDisabled: {
+    backgroundColor: '#CCC',
   },
 
   buttonText: {

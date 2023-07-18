@@ -17,11 +17,11 @@ const Header = ({
   rightIcon,
   onPressRight,
 }) => {
-  const {interactionInProgress} = useInteraction();
+  const {showCallInProgress} = useInteraction();
   return (
     <View style={styles.container}>
       <StatusBar />
-      {interactionInProgress && (
+      {showCallInProgress && (
         <View style={styles.callStatus}>
           <Label style={styles.callText}>CALL IN PROGRESS...</Label>
         </View>

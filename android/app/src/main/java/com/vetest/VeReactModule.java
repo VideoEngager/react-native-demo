@@ -132,6 +132,16 @@ public class VeReactModule extends ReactContextBaseJavaModule {
         }
 
         @Override
+        public void onCallWaiting(){
+            sendEvent("Ve_onCallWaiting", "");
+        }
+
+        @Override
+        public void onCallOnHold(){
+            sendEvent("Ve_onCallHold", "");
+        }
+
+        @Override
         public boolean onError(@NonNull Error error) {
             sendEvent("Ve_onError", new Gson().toJson(error));
             return super.onError(error);
