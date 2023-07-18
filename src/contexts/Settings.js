@@ -35,7 +35,7 @@ const prodConfig = {
   organizationId: 'c4b553c3-ee42-4846-aeb1-f0da3d85058e',
   deploymentId: '973f8326-c601-40c6-82ce-b87e6dafef1c',
   videoengagerUrl: 'videome.videoengager.com',
-  tenantId: 'hbvvUTaZxCVLikpB',
+  tenantId: '0FphTk091nt7G1W7',
   environment: 'https://api.mypurecloud.com',
 };
 
