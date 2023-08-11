@@ -131,10 +131,10 @@ public class VeReactModule extends ReactContextBaseJavaModule {
             sendEvent("Ve_onCallFinished", "");
         }
 
-        @Override
-        public void onCallWaiting(){
-            sendEvent("Ve_onCallWaiting", "");
-        }
+        // @Override
+        // public void onCallWaiting(){
+        //     sendEvent("Ve_onCallWaiting", "");
+        // }
 
         @Override
         public void onCallOnHold(){
