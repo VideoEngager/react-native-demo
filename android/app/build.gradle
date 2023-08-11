@@ -252,7 +252,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation 'com.videoengager:smartvideo-sdk:1.17.0'
+    implementation 'com.videoengager:smartvideo-sdk:1.17.1'
 
     //error reporting lib
     def acraVersion = '5.9.7'
